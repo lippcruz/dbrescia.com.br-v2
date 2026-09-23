@@ -68,6 +68,35 @@ function openStory(index) { renderStory(index); dialog.showModal(); }
 document.querySelectorAll("[data-story]").forEach((button) => button.addEventListener("click", () => openStory(Number(button.dataset.story))));
 dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
 dialog.addEventListener("keydown", (event) => { if (event.key === "ArrowLeft") renderStory(activeStory - 1); if (event.key === "ArrowRight") renderStory(activeStory + 1); });
+let storyPointerStart = null;
+function navigateStoryBySwipe(start, end) {
+  const distanceX = end.x - start.x;
+  const distanceY = end.y - start.y;
+  if (Math.abs(distanceX) < 48 || Math.abs(distanceX) <= Math.abs(distanceY)) return;
+  renderStory(activeStory + (distanceX < 0 ? 1 : -1));
+}
+function startsOnStoryControl(target) { return target instanceof Element && Boolean(target.closest("button")); }
+dialog.addEventListener("pointerdown", (event) => {
+  if (startsOnStoryControl(event.target)) return;
+  storyPointerStart = { x: event.clientX, y: event.clientY };
+});
+dialog.addEventListener("pointerup", (event) => {
+  if (!storyPointerStart) return;
+  navigateStoryBySwipe(storyPointerStart, { x: event.clientX, y: event.clientY });
+  storyPointerStart = null;
+});
+dialog.addEventListener("pointercancel", () => { storyPointerStart = null; });
+dialog.addEventListener("touchstart", (event) => {
+  if (startsOnStoryControl(event.target)) return;
+  const touch = event.changedTouches[0];
+  storyPointerStart = { x: touch.clientX, y: touch.clientY };
+}, { passive: true });
+dialog.addEventListener("touchend", (event) => {
+  if (!storyPointerStart) return;
+  const touch = event.changedTouches[0];
+  navigateStoryBySwipe(storyPointerStart, { x: touch.clientX, y: touch.clientY });
+  storyPointerStart = null;
+}, { passive: true });
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (!reduceMotion && "IntersectionObserver" in window) {
