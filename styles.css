@@ -291,9 +291,13 @@ h3 {
 }
 
 .proof-grid article {
+  display: grid;
+  align-content: center;
+  justify-items: center;
   min-height: 154px;
-  padding: 36px 30px;
+  padding: 24px 30px;
   border-right: 1px solid rgba(18, 13, 8, 0.16);
+  text-align: center;
 }
 
 .proof-grid article:last-child {
@@ -1389,4 +1393,18 @@ h3 {
 .units-section .unit-feature,
 .units-section .unit-controls {
   display: none;
+}
+/* Desktop hero: center the full editorial block in the space below navigation */
+@media (min-width: 981px) {
+  .header-shell {
+    min-height: 900px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-copy {
+    padding-top: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
 }
