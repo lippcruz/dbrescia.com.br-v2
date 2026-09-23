@@ -20,7 +20,7 @@ const menuItems = {
       "Acompanhamentos clássicos do churrasco",
       "Reposição constante durante o serviço",
     ],
-    images: ["assets/figma/3e852.png", "assets/figma/dbc1e.png", "assets/figma/4d13c.png"],
+    images: ["assets/figma/3e852.png", "assets/figma/dbc1e.png", "assets/optimized/ambiente.webp"],
     captions: ["Buffet completo", "Cortes da casa", "Ambiente acolhedor"],
   },
   bebidas: {
@@ -31,7 +31,7 @@ const menuItems = {
       "Drinques clássicos e autorais",
       "Atendimento por unidade para eventos",
     ],
-    images: ["assets/figma/4d13c.png", "assets/figma/53ff4.png", "assets/figma/cb8c1.png"],
+    images: ["assets/optimized/ambiente.webp", "assets/figma/53ff4.png", "assets/figma/cb8c1.png"],
     captions: ["Adega e salão", "Ambev", "Brahma"],
   },
   sobremesas: {
@@ -52,56 +52,56 @@ const units = [
     name: "Santo André",
     tag: "ABC Paulista",
     address: "Av. Dom Pedro II, 444 · Jardim",
-    image: "content/unidades/Santo%20Andr%C3%A9.png",
+    image: "assets/optimized/unidade-santo-andre.webp",
     whatsapp: "https://wa.me/5511996057584",
   },
   {
     name: "Paraíso",
     tag: "Bela Vista",
     address: "Rua Pedro Ivo, 63 · Bela Vista",
-    image: "content/unidades/Para%C3%ADso.png",
+    image: "assets/optimized/unidade-paraiso.webp",
     whatsapp: "https://wa.me/5511974663743",
   },
   {
     name: "Faria Lima",
     tag: "Adega · Parrilla",
     address: "Av. Brig. Faria Lima, 3167",
-    image: "content/unidades/Faria%20Lima.png",
+    image: "assets/optimized/unidade-faria-lima.webp",
     whatsapp: "https://wa.me/5511978285657",
   },
   {
     name: "Marginal Tietê",
     tag: "Zona Norte",
     address: "Pç. Bento de Camargo Barros, 172",
-    image: "content/unidades/Marginal%20Tiet%C3%AA.png",
+    image: "assets/optimized/unidade-marginal-tiete.webp",
     whatsapp: centralLink,
   },
   {
     name: "Guarulhos",
     tag: "Grande São Paulo",
     address: "Unidade Guarulhos",
-    image: "content/unidades/Guarulhos.png",
+    image: "assets/optimized/unidade-guarulhos.webp",
     whatsapp: centralLink,
   },
   {
     name: "Vila Mariana",
     tag: "Zona Sul",
     address: "Unidade Vila Mariana",
-    image: "content/unidades/Vila%20Mariana.jpg",
+    image: "assets/optimized/unidade-vila-mariana.webp",
     whatsapp: centralLink,
   },
   {
     name: "Morumbi",
     tag: "Zona Oeste",
     address: "Unidade Morumbi",
-    image: "content/unidades/Morumbi.jpeg",
+    image: "assets/optimized/unidade-morumbi.webp",
     whatsapp: centralLink,
   },
   {
     name: "São Bernardo",
     tag: "ABC Paulista",
     address: "Unidade São Bernardo",
-    image: "content/unidades/S%C3%A3o%20Bernardo.png",
+    image: "assets/optimized/unidade-sao-bernardo.webp",
     whatsapp: centralLink,
   },
 ];
@@ -123,8 +123,10 @@ function setMenu(key) {
     const active = tab.dataset.menuTab === key;
     tab.classList.toggle("is-active", active);
     tab.setAttribute("aria-selected", String(active));
+    tab.setAttribute("tabindex", active ? "0" : "-1");
   });
 
+  menuPanel.setAttribute("aria-labelledby", `tab-${key}`);
   menuPanel.innerHTML = `
     <h3>${item.title}</h3>
     <ul>${item.points.map((point) => `<li>${point}</li>`).join("")}</ul>
@@ -152,6 +154,8 @@ const unitWhatsapp = document.querySelector("[data-unit-whatsapp]");
 function setUnit(index) {
   const unit = units[index];
   unitImage.src = unit.image;
+  unitImage.loading = "lazy";
+  unitImage.decoding = "async";
   unitImage.alt = `Unidade ${unit.name}`;
   unitIndex.textContent = `${String(index + 1).padStart(2, "0")} / ${String(units.length).padStart(2, "0")}`;
   unitName.textContent = unit.name;
@@ -165,14 +169,14 @@ function setUnit(index) {
 }
 
 unitControls.innerHTML = units
-  .map((unit, index) => `<button class="unit-thumb" type="button" data-unit="${index}" aria-pressed="false">${unit.name}</button>`)
+  .map((unit, index) => `<button class="unit-thumb" type="button" data-unit="${index}" aria-pressed="false" aria-label="Ver detalhes da unidade ${unit.name}">${unit.name}</button>`)
   .join("");
 
 unitGrid.innerHTML = units
   .map(
     (unit, index) => `
-      <button class="unit-card" type="button" data-unit="${index}">
-        <img src="${unit.image}" alt="">
+      <button class="unit-card" type="button" data-unit="${index}" aria-label="Selecionar unidade ${unit.name}">
+        <img src="${unit.image}" alt="" loading="lazy" decoding="async">
         <div>
           <strong>${unit.name}</strong>
           <span>${unit.tag}</span>
@@ -198,6 +202,7 @@ const closeMenuButton = document.querySelector("[data-close-menu]");
 function closeMobileMenu() {
   mobileMenu.close();
   document.body.classList.remove("menu-open");
+  menuButton.setAttribute("aria-expanded", "false");
   menuButton.focus();
 }
 

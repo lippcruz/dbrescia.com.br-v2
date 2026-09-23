@@ -3,16 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>D'Brescia Churrascaria</title>
+    <title>D'Brescia Churrascaria | Rodízio, cortes nobres e eventos em São Paulo</title>
     <meta
       name="description"
-      content="D'Brescia Churrascaria: autentico churrasco gaucho, cortes nobres, buffet completo e unidades na Grande Sao Paulo."
+      content="D'Brescia Churrascaria: rodízio com cortes nobres, buffet completo, eventos e 8 unidades na Grande São Paulo. Reserve sua mesa."
     />
-    <link rel="preload" as="image" href="assets/figma/b28f7.png" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    <meta name="theme-color" content="#070606" />
+    <link rel="canonical" href="https://lippcruz.github.io/dbrescia.com.br-v2/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="D'Brescia Churrascaria" />
+    <meta property="og:title" content="D'Brescia Churrascaria | Rodízio, cortes nobres e eventos" />
+    <meta property="og:description" content="Cortes nobres, buffet completo e hospitalidade em 8 unidades na Grande São Paulo." />
+    <meta property="og:url" content="https://lippcruz.github.io/dbrescia.com.br-v2/" />
+    <meta property="og:image" content="https://lippcruz.github.io/dbrescia.com.br-v2/assets/optimized/hero-fire.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preload" as="image" href="assets/optimized/hero-fire.webp" fetchpriority="high" />
+    <link rel="manifest" href="site.webmanifest" />
     <link rel="stylesheet" href="assets/fonts/google-fonts.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
     <header class="site-header" id="inicio">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="container header-shell">
@@ -33,7 +46,7 @@
             <a href="#historia">História</a>
           </div>
           <a class="btn btn-gold nav-cta" href="https://linktr.ee/dbrescia" target="_blank" rel="noreferrer">Reservar</a>
-          <button class="menu-button" type="button" aria-label="Abrir menu" aria-controls="mobile-menu">
+          <button class="menu-button" type="button" aria-label="Abrir menu" aria-controls="mobile-menu" aria-expanded="false">
             <span></span><span></span>
           </button>
         </nav>
@@ -73,7 +86,7 @@
       </div>
     </dialog>
 
-    <main>
+    <main id="conteudo">
       <section class="proof-band" aria-label="Destaques">
         <div class="container proof-grid">
           <article><strong>25+</strong><span>cortes selecionados</span></article>
@@ -93,12 +106,12 @@
               chopp, drinques e sobremesas produzidas na casa.
             </p>
             <div class="tabs" role="tablist" aria-label="Categorias do cardápio">
-              <button class="tab is-active" type="button" role="tab" aria-selected="true" data-menu-tab="carnes">Carnes</button>
-              <button class="tab" type="button" role="tab" aria-selected="false" data-menu-tab="buffet">Buffet</button>
-              <button class="tab" type="button" role="tab" aria-selected="false" data-menu-tab="bebidas">Bebidas</button>
-              <button class="tab" type="button" role="tab" aria-selected="false" data-menu-tab="sobremesas">Sobremesas</button>
+              <button class="tab is-active" id="tab-carnes" type="button" role="tab" aria-selected="true" aria-controls="menu-panel" data-menu-tab="carnes">Carnes</button>
+              <button class="tab" id="tab-buffet" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-menu-tab="buffet">Buffet</button>
+              <button class="tab" id="tab-bebidas" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-menu-tab="bebidas">Bebidas</button>
+              <button class="tab" id="tab-sobremesas" type="button" role="tab" aria-selected="false" aria-controls="menu-panel" data-menu-tab="sobremesas">Sobremesas</button>
             </div>
-            <div class="menu-panel" id="menu-panel" aria-live="polite"></div>
+            <div class="menu-panel" id="menu-panel" role="tabpanel" aria-live="polite" aria-labelledby="tab-carnes" tabindex="-1"></div>
           </div>
           <div class="menu-gallery" aria-label="Fotos do cardápio">
             <figure class="gallery-main">
@@ -119,7 +132,7 @@
 
       <section class="section experience" id="experiencia">
         <div class="experience-image">
-          <img src="assets/figma/4d13c.png" alt="Ambiente da D'Brescia" />
+          <img src="assets/optimized/ambiente.webp" alt="Ambiente da D'Brescia" />
         </div>
         <div class="experience-copy">
           <p class="eyebrow">Experiência D'Brescia</p>
@@ -148,7 +161,7 @@
           </div>
 
           <div class="unit-feature" aria-live="polite">
-            <img data-unit-main-image src="content/unidades/Santo%20Andr%C3%A9.png" alt="Unidade Santo André" />
+            <img data-unit-main-image src="assets/optimized/unidade-santo-andre.webp" alt="Unidade Santo André" />
             <div>
               <span data-unit-index>01 / 08</span>
               <h3 data-unit-name>Santo André</h3>
@@ -160,7 +173,7 @@
             </div>
           </div>
 
-          <div class="unit-controls" aria-label="Selecionar unidade"></div>
+          <div class="unit-controls" role="group" aria-label="Selecionar unidade"></div>
           <div class="unit-grid"></div>
         </div>
       </section>
@@ -168,7 +181,7 @@
       <section class="section events" id="eventos">
         <div class="container events-layout">
           <figure>
-            <img src="assets/figma/4d13c.png" alt="Ambiente preparado para eventos" />
+            <img src="assets/optimized/ambiente.webp" alt="Ambiente preparado para eventos" />
             <figcaption>
               <strong>Ambientes preparados para receber bem.</strong>
               <span>Eventos corporativos · celebrações · grupos</span>
@@ -207,7 +220,7 @@
             </div>
           </div>
           <a class="video-card" href="https://www.youtube.com/watch?v=GO7LX_fqPFc" target="_blank" rel="noreferrer">
-            <img src="assets/figma/43b40.png" alt="Edival Spricigo e Cléber Broch" />
+            <img src="assets/optimized/historia.webp" alt="Edival Spricigo e Cléber Broch" />
             <span>▶ Assistir história</span>
           </a>
         </div>
@@ -241,7 +254,7 @@
           </div>
           <div class="press-grid">
             <a class="press-main" href="https://exame.com/negocios/o-paulista-e-o-catarinense-que-vao-faturar-r-250-milhoes-com-churrasco-tipicamente-gaucho/" target="_blank" rel="noreferrer">
-              <img src="assets/figma/43b40.png" alt="Entrevista D'Brescia" />
+              <img src="assets/optimized/historia.webp" alt="Entrevista D'Brescia" />
               <span>Exame · 20 set 2025</span>
               <strong>O crescimento da D'Brescia e a meta de R$ 250 milhões.</strong>
             </a>
@@ -306,6 +319,9 @@
       <a href="https://linktr.ee/dbrescia" target="_blank" rel="noreferrer"><img src="assets/figma/3e190.svg" alt="" />Reservar</a>
     </div>
 
-    <script src="script.js"></script>
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"D'Brescia Churrascaria","description":"Rodízio com cortes nobres, buffet completo e espaços para eventos na Grande São Paulo.","url":"https://lippcruz.github.io/dbrescia.com.br-v2/","image":"https://lippcruz.github.io/dbrescia.com.br-v2/assets/optimized/hero-fire.webp","servesCuisine":["Churrasco gaúcho","Brasileira"],"areaServed":"Grande São Paulo","sameAs":["https://www.instagram.com/dbresciachurrascaria/","https://www.facebook.com/dbresciachurrascaria/"]}
+</script>
+<script src="script.js" defer></script>
   </body>
 </html>
