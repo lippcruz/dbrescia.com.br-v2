@@ -23,30 +23,56 @@ const publishedGallery = window.unitGalleries?.[pageUnit] || [];
 const photos = publishedGallery.length >= 3 ? publishedGallery : [...publishedGallery, ...fallbackPhotos].slice(0, 3);
 const mediaItems = [
   ...photos.map((photo, index) => ({
-    type: "photo",
-    label: ["A casa", "Ambiente", "Detalhes"][index] || "Galeria",
+    type: "photo", label: ["A casa", "Ambiente", "Detalhes"][index] || "Galeria",
     title: index === 0 ? `D'Brescia ${unit.name}` : `D'Brescia ${unit.name} · Foto ${index + 1}`,
-    description: "Um registro da experiência e da hospitalidade da nossa unidade.",
-    image: photo.src,
-    alt: photo.alt,
-    thumb: photo.src,
+    description: "Um registro da experiência e da hospitalidade da nossa unidade.", image: photo.src,
+    alt: photo.alt, thumb: photo.src,
   })),
   { type: "video", label: "Em vídeo", title: "Veja a D'Brescia em movimento", description: "Um registro da nossa história e da atmosfera que une cada casa.", image: "assets/optimized/ambiente.webp", alt: "Vídeo institucional D'Brescia", thumb: "assets/optimized/story-video.webp", video: "GO7LX_fqPFc" },
 ];
 document.querySelectorAll("[data-unit-name]").forEach((node) => { node.textContent = unit.name; });
 document.querySelectorAll("[data-unit-tag]").forEach((node) => { node.textContent = unit.tag; });
 document.querySelectorAll("[data-unit-address]").forEach((node) => { node.textContent = unit.address; });
-document.querySelectorAll("[data-unit-image]").forEach((node) => {
-  node.src = `${base}${publishedGallery[0]?.src || unit.image}`;
-  node.alt = `Ambiente da unidade D'Brescia ${unit.name}`;
-});
+document.querySelectorAll("[data-unit-image]").forEach((node) => { node.src = `${base}${publishedGallery[0]?.src || unit.image}`; node.alt = `Ambiente da unidade D'Brescia ${unit.name}`; });
 document.querySelectorAll("[data-unit-whatsapp]").forEach((node) => { node.href = unit.whatsapp; });
 document.querySelectorAll("[data-unit-map]").forEach((node) => { node.href = `https://www.google.com/maps/search/?api=1&query=${query}`; });
+
 const rail = document.querySelector("[data-story-rail]");
 rail.innerHTML = mediaItems.slice(0, 4).map((story, index) => `<button class="story-card" type="button" data-story="${index}" aria-label="Abrir ${story.label}: ${story.title}"><span class="story-ring"><img src="${base}${story.thumb || story.image}" alt="" loading="lazy" decoding="async"></span><span>${story.label}</span>${story.type === "video" ? '<b aria-hidden="true">▶</b>' : ""}</button>`).join("");
 
 const gallery = document.querySelector("[data-gallery]");
-gallery.innerHTML = mediaItems.map((story, index) => `<button class="gallery-card gallery-card--${story.type}" type="button" data-story="${index}"><img src="${base}${story.image}" alt="" loading="lazy" decoding="async"><span>${story.type === "video" ? "▶ Vídeo" : "Galeria"}</span><strong>${story.title}</strong></button>`).join("");
+gallery.innerHTML = `<div class="gallery-viewer"><button class="gallery-viewer__main" type="button" data-gallery-open aria-label="Abrir foto em tela cheia"><img data-gallery-image src="" alt=""><span class="gallery-viewer__play" aria-hidden="true">▶</span></button><div class="gallery-viewer__thumbs" role="tablist" aria-label="Fotos da unidade">${mediaItems.map((story, index) => `<button class="gallery-viewer__thumb" type="button" role="tab" data-gallery-thumb="${index}" aria-selected="false" aria-label="Ver ${story.label}"><img src="${base}${story.thumb || story.image}" alt="" loading="lazy" decoding="async">${story.type === "video" ? '<span aria-hidden="true">▶</span>' : ""}</button>`).join("")}</div></div>`;
+let activeGalleryItem = 0;
+const galleryImage = gallery.querySelector("[data-gallery-image]");
+const galleryOpen = gallery.querySelector("[data-gallery-open]");
+const galleryPlay = gallery.querySelector(".gallery-viewer__play");
+function setGalleryItem(index, focus = false) {
+  activeGalleryItem = (index + mediaItems.length) % mediaItems.length;
+  const item = mediaItems[activeGalleryItem];
+  galleryImage.src = `${base}${item.image}`;
+  galleryImage.alt = item.alt || item.title;
+  galleryOpen.setAttribute("aria-label", `Abrir ${item.label} em tela cheia`);
+  galleryPlay.hidden = item.type !== "video";
+  gallery.querySelectorAll("[data-gallery-thumb]").forEach((thumb, thumbIndex) => {
+    const selected = thumbIndex === activeGalleryItem;
+    thumb.classList.toggle("is-active", selected);
+    thumb.setAttribute("aria-selected", String(selected));
+    if (selected) { thumb.scrollIntoView({ block: "nearest", inline: "center", behavior: focus ? "smooth" : "auto" }); }
+  });
+}
+setGalleryItem(0);
+gallery.querySelectorAll("[data-gallery-thumb]").forEach((thumb) => thumb.addEventListener("click", () => setGalleryItem(Number(thumb.dataset.galleryThumb), true)));
+let galleryPointerStart = null;
+let galleryDidSwipe = false;
+galleryOpen.addEventListener("pointerdown", (event) => { galleryDidSwipe = false; galleryPointerStart = { x: event.clientX, y: event.clientY }; });
+galleryOpen.addEventListener("pointerup", (event) => {
+  if (!galleryPointerStart) return;
+  const distanceX = event.clientX - galleryPointerStart.x;
+  const distanceY = event.clientY - galleryPointerStart.y;
+  galleryPointerStart = null;
+  if (Math.abs(distanceX) >= 48 && Math.abs(distanceX) > Math.abs(distanceY)) { galleryDidSwipe = true; setGalleryItem(activeGalleryItem + (distanceX < 0 ? 1 : -1), true); }
+});
+galleryOpen.addEventListener("pointercancel", () => { galleryPointerStart = null; });
 
 const dialog = document.querySelector("#story-dialog");
 const dialogBody = document.querySelector("[data-story-dialog-body]");
@@ -55,9 +81,7 @@ function renderStory(index) {
   activeStory = (index + mediaItems.length) % mediaItems.length;
   const story = mediaItems[activeStory];
   const progress = mediaItems.map((_, progressIndex) => `<i class="${progressIndex <= activeStory ? "is-active" : ""}"></i>`).join("");
-  const media = story.type === "video"
-    ? `<iframe src="https://www.youtube-nocookie.com/embed/${story.video}?autoplay=1&rel=0" title="Vídeo D'Brescia" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
-    : `<img src="${base}${story.image}" alt="${story.alt || story.title}">`;
+  const media = story.type === "video" ? `<iframe src="https://www.youtube-nocookie.com/embed/${story.video}?autoplay=1&rel=0" title="Vídeo D'Brescia" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>` : `<img src="${base}${story.image}" alt="${story.alt || story.title}">`;
   dialogBody.innerHTML = `<div class="story-progress" aria-hidden="true">${progress}</div><button class="story-close" type="button" data-story-close aria-label="Fechar galeria">×</button><button class="story-nav story-nav--previous" type="button" data-story-previous aria-label="Foto anterior">‹</button><div class="story-media">${media}</div><div class="story-caption"><span>${story.label}</span><h2>${story.title}</h2><p>${story.description}</p></div><button class="story-nav story-nav--next" type="button" data-story-next aria-label="Próxima foto">›</button>`;
   dialog.querySelector("[data-story-close]").focus();
   dialog.querySelector("[data-story-close]").addEventListener("click", () => dialog.close());
@@ -66,37 +90,17 @@ function renderStory(index) {
 }
 function openStory(index) { renderStory(index); dialog.showModal(); }
 document.querySelectorAll("[data-story]").forEach((button) => button.addEventListener("click", () => openStory(Number(button.dataset.story))));
+galleryOpen.addEventListener("click", (event) => { if (galleryDidSwipe) { event.preventDefault(); galleryDidSwipe = false; return; } openStory(activeGalleryItem); });
 dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
 dialog.addEventListener("keydown", (event) => { if (event.key === "ArrowLeft") renderStory(activeStory - 1); if (event.key === "ArrowRight") renderStory(activeStory + 1); });
 let storyPointerStart = null;
-function navigateStoryBySwipe(start, end) {
-  const distanceX = end.x - start.x;
-  const distanceY = end.y - start.y;
-  if (Math.abs(distanceX) < 48 || Math.abs(distanceX) <= Math.abs(distanceY)) return;
-  renderStory(activeStory + (distanceX < 0 ? 1 : -1));
-}
+function navigateStoryBySwipe(start, end) { const distanceX = end.x - start.x; const distanceY = end.y - start.y; if (Math.abs(distanceX) < 48 || Math.abs(distanceX) <= Math.abs(distanceY)) return; renderStory(activeStory + (distanceX < 0 ? 1 : -1)); }
 function startsOnStoryControl(target) { return target instanceof Element && Boolean(target.closest("button")); }
-dialog.addEventListener("pointerdown", (event) => {
-  if (startsOnStoryControl(event.target)) return;
-  storyPointerStart = { x: event.clientX, y: event.clientY };
-});
-dialog.addEventListener("pointerup", (event) => {
-  if (!storyPointerStart) return;
-  navigateStoryBySwipe(storyPointerStart, { x: event.clientX, y: event.clientY });
-  storyPointerStart = null;
-});
+dialog.addEventListener("pointerdown", (event) => { if (!startsOnStoryControl(event.target)) storyPointerStart = { x: event.clientX, y: event.clientY }; });
+dialog.addEventListener("pointerup", (event) => { if (!storyPointerStart) return; navigateStoryBySwipe(storyPointerStart, { x: event.clientX, y: event.clientY }); storyPointerStart = null; });
 dialog.addEventListener("pointercancel", () => { storyPointerStart = null; });
-dialog.addEventListener("touchstart", (event) => {
-  if (startsOnStoryControl(event.target)) return;
-  const touch = event.changedTouches[0];
-  storyPointerStart = { x: touch.clientX, y: touch.clientY };
-}, { passive: true });
-dialog.addEventListener("touchend", (event) => {
-  if (!storyPointerStart) return;
-  const touch = event.changedTouches[0];
-  navigateStoryBySwipe(storyPointerStart, { x: touch.clientX, y: touch.clientY });
-  storyPointerStart = null;
-}, { passive: true });
+dialog.addEventListener("touchstart", (event) => { if (startsOnStoryControl(event.target)) return; const touch = event.changedTouches[0]; storyPointerStart = { x: touch.clientX, y: touch.clientY }; }, { passive: true });
+dialog.addEventListener("touchend", (event) => { if (!storyPointerStart) return; const touch = event.changedTouches[0]; navigateStoryBySwipe(storyPointerStart, { x: touch.clientX, y: touch.clientY }); storyPointerStart = null; }, { passive: true });
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (!reduceMotion && "IntersectionObserver" in window) {
