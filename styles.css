@@ -1326,3 +1326,16 @@ h3 {
   .mobile-sticky a { min-height: 76px; font-size: 10px; }
   .mobile-sticky a:nth-child(2) { background: var(--gold); color: #120d08; }
 }
+/* Subtle editorial motion */
+.hero-copy { animation: hero-arrive 700ms 130ms both cubic-bezier(.22,.8,.2,1); }
+.hero-actions .btn { animation: hero-arrive 560ms 380ms both cubic-bezier(.22,.8,.2,1); }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 620ms ease, transform 620ms cubic-bezier(.22,.8,.2,1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+.unit-card { position: relative; transition: border-color 180ms ease, transform 180ms ease, background 180ms ease; }
+.unit-card:hover { transform: translateY(-5px); }
+.unit-card img { transition: transform 500ms cubic-bezier(.22,.8,.2,1); }
+.unit-card:hover img { transform: scale(1.045); }
+.unit-card em { display: block; margin: 0 18px 18px; color: var(--gold); font-size: 10px; font-style: normal; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.unit-card em span { margin-left: 4px; }
+@keyframes hero-arrive { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-copy, .hero-actions .btn { animation: none; } .reveal { opacity: 1; transform: none; } }
