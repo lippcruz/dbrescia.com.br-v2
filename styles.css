@@ -1278,8 +1278,22 @@ h3 {
   .btn { min-height: 54px; padding: 0 18px; }
   .hero-copy small { margin-top: 24px; line-height: 1.45; }
 
-  .proof-grid { margin: 0 -20px; }
-  .proof-grid article { min-height: 116px; padding: 22px 20px; }
+  .proof-grid {
+    width: 100%;
+    margin: 0;
+    border-top: 1px solid rgba(18, 13, 8, 0.16);
+  }
+
+  .proof-grid article {
+    min-height: 116px;
+    padding: 22px 20px;
+    border-bottom: 0;
+  }
+
+  .proof-grid article:nth-child(n + 3) {
+    border-top: 1px solid rgba(18, 13, 8, 0.16);
+  }
+
   .proof-grid strong { font-size: 42px; }
   .proof-grid span { margin-top: 8px; font-size: 10px; line-height: 1.35; }
 
