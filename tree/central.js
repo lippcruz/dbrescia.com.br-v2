@@ -21,3 +21,18 @@ document.querySelector('[data-show-delivery]').addEventListener('click', () => {
   setMode('delivery');
   document.querySelector('#unidades').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  const revealTargets = document.querySelectorAll('.section-heading, .mode-switch, .unit-card, .delivery-note, .other-links__grid, .footer');
+  revealTargets.forEach((target) => target.classList.add('reveal'));
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        currentObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealTargets.forEach((target) => observer.observe(target));
+}
