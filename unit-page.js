@@ -2,18 +2,18 @@ const pageUnit = document.body.dataset.unit;
 const base = "../../";
 const centralLink = "https://linktr.ee/dbrescia";
 const units = {
-  "santo-andre": { name: "Santo André", tag: "ABC Paulista", address: "Av. Dom Pedro II, 444 · Jardim", image: "assets/optimized/unidade-santo-andre.webp", whatsapp: "https://wa.me/5511996057584" },
-  paraiso: { name: "Paraíso", tag: "Bela Vista", address: "Rua Pedro Ivo, 63 · Bela Vista", image: "assets/optimized/unidade-paraiso.webp", whatsapp: "https://wa.me/5511974663743" },
-  "faria-lima": { name: "Faria Lima", tag: "Adega · Parrilla", address: "Av. Brig. Faria Lima, 3167", image: "assets/optimized/unidade-faria-lima.webp", whatsapp: "https://wa.me/5511978285657" },
-  "marginal-tiete": { name: "Marginal Tietê", tag: "Zona Norte", address: "Pç. Bento de Camargo Barros, 172", image: "assets/optimized/unidade-marginal-tiete.webp", whatsapp: centralLink },
-  guarulhos: { name: "Guarulhos", tag: "Grande São Paulo", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-guarulhos.webp", whatsapp: centralLink },
-  "vila-mariana": { name: "Vila Mariana", tag: "Zona Sul", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-vila-mariana.webp", whatsapp: centralLink },
-  morumbi: { name: "Morumbi", tag: "Zona Oeste", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-morumbi.webp", whatsapp: centralLink },
-  "sao-bernardo": { name: "São Bernardo", tag: "ABC Paulista", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-sao-bernardo.webp", whatsapp: centralLink },
-  "barra-funda": { name: "Barra Funda", tag: "Zona Oeste", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-barra-funda.webp", whatsapp: centralLink },
+  "santo-andre": { name: "Santo André", tag: "ABC Paulista", address: "Av. Dom Pedro II, 444 · Jardim · Santo André - SP", phone: "1144361263", phoneDisplay: "(11) 4436-1263", image: "assets/optimized/unidade-santo-andre.webp", whatsapp: "https://wa.me/5511996057584" },
+  paraiso: { name: "Paraíso", tag: "Bela Vista", address: "Rua Pedro Ivo, 63 · Paraíso · São Paulo - SP", phone: "1131412991", phoneDisplay: "(11) 3141-2991", image: "assets/optimized/unidade-paraiso.webp", whatsapp: "https://wa.me/5511974663743" },
+  "faria-lima": { name: "Faria Lima", tag: "Adega · Parrilla", address: "Av. Brigadeiro Faria Lima, 3167 · Itaim Bibi · São Paulo - SP", phone: "1130793250", phoneDisplay: "(11) 3079-3250", image: "assets/optimized/unidade-faria-lima.webp", whatsapp: "https://wa.me/5511978285657" },
+  "marginal-tiete": { name: "Marginal Tietê", tag: "Zona Norte", address: "Praça Bento de Camargo Barros, 172 · Marginal Tietê · São Paulo - SP", phone: "1132284271", phoneDisplay: "(11) 3228-4271", image: "assets/optimized/unidade-marginal-tiete.webp", whatsapp: "https://wa.me/5511913707061" },
+  guarulhos: { name: "Guarulhos", tag: "Grande São Paulo", address: "Av. Antônio de Souza, 186 · Jardim Santa Francisca · Guarulhos - SP", phone: "1124434062", phoneDisplay: "(11) 2443-4062", image: "assets/optimized/unidade-guarulhos.webp", whatsapp: "https://wa.me/5511977891460" },
+  "vila-mariana": { name: "Vila Mariana", tag: "Zona Sul", address: "Rua Pedro de Toledo, 1361 · Vila Mariana · São Paulo - SP", phone: "1155557489", phoneDisplay: "(11) 5555-7489", image: "assets/optimized/unidade-vila-mariana.webp", whatsapp: "https://wa.me/5511925296446" },
+  morumbi: { name: "Morumbi", tag: "Zona Sul", address: "Av. Dr. Guilherme Dumont Vilares, 2394 · Vila Andrade · São Paulo - SP", phone: "11999088541", phoneDisplay: "(11) 99908-8541", image: "assets/optimized/unidade-morumbi.webp", whatsapp: "https://wa.me/5511995706960" },
+  "sao-bernardo": { name: "São Bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 77 · Planalto · São Bernardo do Campo - SP", phone: "11913662743", phoneDisplay: "(11) 91366-2743", image: "assets/optimized/unidade-sao-bernardo.webp", whatsapp: "https://wa.me/5511913662743" },
+  "barra-funda": { name: "Barra Funda", tag: "Zona Oeste", address: "Av. Marquês de São Vicente, 1771 · Várzea da Barra Funda · São Paulo - SP", phone: "1153993456", phoneDisplay: "(11) 5399-3456", image: "assets/optimized/unidade-barra-funda.webp", whatsapp: "https://wa.me/5511943976727" },
 };
 const unit = units[pageUnit];
-const query = encodeURIComponent(`D'Brescia Churrascaria ${unit.name}`);
+const query = encodeURIComponent(unit.address);
 const fallbackPhotos = [
   { src: "assets/optimized/ambiente.webp", alt: "Ambiente D'Brescia" },
   { src: "assets/optimized/story-fogo.webp", alt: "Cortes nobres D'Brescia" },
@@ -30,6 +30,8 @@ const mediaItems = photos.map((photo, index) => ({
 document.querySelectorAll("[data-unit-name]").forEach((node) => { node.textContent = unit.name; });
 document.querySelectorAll("[data-unit-tag]").forEach((node) => { node.textContent = unit.tag; });
 document.querySelectorAll("[data-unit-address]").forEach((node) => { node.textContent = unit.address; });
+document.querySelectorAll("[data-unit-phone]").forEach((node) => { node.textContent = unit.phoneDisplay; });
+document.querySelectorAll("[data-unit-phone-link]").forEach((node) => { node.href = `tel:+55${unit.phone}`; });
 document.querySelectorAll("[data-unit-image]").forEach((node) => { node.src = `${base}${publishedGallery[0]?.src || unit.image}`; node.alt = `Ambiente da unidade D'Brescia ${unit.name}`; });
 document.querySelectorAll("[data-unit-whatsapp]").forEach((node) => { node.href = unit.whatsapp; });
 document.querySelectorAll("[data-unit-map]").forEach((node) => { node.href = `https://www.google.com/maps/search/?api=1&query=${query}`; });
