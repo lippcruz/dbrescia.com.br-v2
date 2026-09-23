@@ -1443,3 +1443,72 @@ h3 {
     display: none;
   }
 }
+/* Larger unit cards: a calm three-column directory on desktop, one-card browsing on mobile. */
+@media (min-width: 761px) {
+  .units-section .unit-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .units-section .unit-card {
+    min-height: 326px;
+  }
+
+  .units-section .unit-card img {
+    height: 208px;
+  }
+
+  .units-section .unit-card div {
+    padding: 20px 20px 0;
+  }
+
+  .units-section .unit-card strong {
+    font-size: 19px;
+  }
+
+  .units-section .unit-card em {
+    margin: 15px 20px 20px;
+  }
+}
+
+@media (max-width: 620px) {
+  .units-section .unit-grid {
+    display: flex;
+    gap: 14px;
+    margin-right: -20px;
+    padding: 2px 20px 10px 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .units-section .unit-card {
+    flex: 0 0 calc(100% - 62px);
+    min-width: 0;
+    min-height: 312px;
+    scroll-snap-align: start;
+  }
+
+  .units-section .unit-card img {
+    height: 188px;
+  }
+
+  .units-section .unit-card div {
+    padding: 17px 16px 0;
+  }
+
+  .units-section .unit-card strong {
+    font-size: 18px;
+    line-height: 1.15;
+  }
+
+  .units-section .unit-card span {
+    font-size: 12px;
+  }
+
+  .units-section .unit-card em {
+    margin: 15px 16px 18px;
+    font-size: 10px;
+  }
+}
