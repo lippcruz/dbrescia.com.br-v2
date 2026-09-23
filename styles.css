@@ -1385,3 +1385,8 @@ h3 {
     line-height: 1.35;
   }
 }
+/* Units are browsed directly through their cards on every screen size */
+.units-section .unit-feature,
+.units-section .unit-controls {
+  display: none;
+}
