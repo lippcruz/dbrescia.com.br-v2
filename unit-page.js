@@ -15,10 +15,10 @@ const units = {
 const unit = units[pageUnit];
 const query = encodeURIComponent(`D'Brescia Churrascaria ${unit.name}`);
 const stories = [
-  { type: "photo", label: "A casa", title: `D'Brescia ${unit.name}`, description: "Uma experiência de churrasco feita para encontros que merecem tempo à mesa.", image: unit.image },
-  { type: "photo", label: "No fogo", title: "Cortes no ponto", description: "Seleção de carnes servida durante todo o rodízio.", image: "assets/figma/dbc1e.png" },
-  { type: "photo", label: "Buffet", title: "Escolhas à vontade", description: "Entradas, saladas, pratos quentes e sobremesas completam a experiência.", image: "assets/figma/3e852.png" },
-  { type: "video", label: "Em vídeo", title: "Veja a D'Brescia em movimento", description: "Um registro da nossa história e da atmosfera que une cada casa.", image: "assets/optimized/ambiente.webp", video: "GO7LX_fqPFc" },
+  { type: "photo", label: "A casa", title: `D'Brescia ${unit.name}`, description: "Uma experiência de churrasco feita para encontros que merecem tempo à mesa.", image: unit.image, thumb: "assets/optimized/story-casa.webp" },
+  { type: "photo", label: "No fogo", title: "Cortes no ponto", description: "Seleção de carnes servida durante todo o rodízio.", image: "assets/figma/dbc1e.png", thumb: "assets/optimized/story-fogo.webp" },
+  { type: "photo", label: "Buffet", title: "Escolhas à vontade", description: "Entradas, saladas, pratos quentes e sobremesas completam a experiência.", image: "assets/figma/3e852.png", thumb: "assets/optimized/story-buffet.webp" },
+  { type: "video", label: "Em vídeo", title: "Veja a D'Brescia em movimento", description: "Um registro da nossa história e da atmosfera que une cada casa.", image: "assets/optimized/ambiente.webp", thumb: "assets/optimized/story-video.webp", video: "GO7LX_fqPFc" },
 ];
 
 document.querySelectorAll("[data-unit-name]").forEach((node) => { node.textContent = unit.name; });
@@ -29,7 +29,7 @@ document.querySelectorAll("[data-unit-whatsapp]").forEach((node) => { node.href 
 document.querySelectorAll("[data-unit-map]").forEach((node) => { node.href = `https://www.google.com/maps/search/?api=1&query=${query}`; });
 
 const rail = document.querySelector("[data-story-rail]");
-rail.innerHTML = stories.map((story, index) => `<button class="story-card" type="button" data-story="${index}" aria-label="Abrir ${story.label}: ${story.title}"><span class="story-ring"><img src="${base}${story.image}" alt="" loading="lazy" decoding="async"></span><span>${story.label}</span>${story.type === "video" ? '<b aria-hidden="true">▶</b>' : ""}</button>`).join("");
+rail.innerHTML = stories.map((story, index) => `<button class="story-card" type="button" data-story="${index}" aria-label="Abrir ${story.label}: ${story.title}"><span class="story-ring"><img src="${base}${story.thumb || story.image}" alt="" loading="lazy" decoding="async"></span><span>${story.label}</span>${story.type === "video" ? '<b aria-hidden="true">▶</b>' : ""}</button>`).join("");
 
 const gallery = document.querySelector("[data-gallery]");
 gallery.innerHTML = stories.map((story, index) => `<button class="gallery-card gallery-card--${story.type}" type="button" data-story="${index}"><img src="${base}${story.image}" alt="" loading="lazy" decoding="async"><span>${story.type === "video" ? "▶ Vídeo" : "Galeria"}</span><strong>${story.title}</strong></button>`).join("");
