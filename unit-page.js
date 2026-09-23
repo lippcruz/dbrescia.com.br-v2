@@ -14,36 +14,50 @@ const units = {
 };
 const unit = units[pageUnit];
 const query = encodeURIComponent(`D'Brescia Churrascaria ${unit.name}`);
-const stories = [
-  { type: "photo", label: "A casa", title: `D'Brescia ${unit.name}`, description: "Uma experiência de churrasco feita para encontros que merecem tempo à mesa.", image: unit.image, thumb: "assets/optimized/story-casa.webp" },
-  { type: "photo", label: "No fogo", title: "Cortes no ponto", description: "Seleção de carnes servida durante todo o rodízio.", image: "assets/figma/dbc1e.png", thumb: "assets/optimized/story-fogo.webp" },
-  { type: "photo", label: "Buffet", title: "Escolhas à vontade", description: "Entradas, saladas, pratos quentes e sobremesas completam a experiência.", image: "assets/figma/3e852.png", thumb: "assets/optimized/story-buffet.webp" },
-  { type: "video", label: "Em vídeo", title: "Veja a D'Brescia em movimento", description: "Um registro da nossa história e da atmosfera que une cada casa.", image: "assets/optimized/ambiente.webp", thumb: "assets/optimized/story-video.webp", video: "GO7LX_fqPFc" },
+const fallbackPhotos = [
+  { src: "assets/optimized/ambiente.webp", alt: "Ambiente D'Brescia" },
+  { src: "assets/optimized/story-fogo.webp", alt: "Cortes nobres D'Brescia" },
+  { src: "assets/optimized/story-buffet.webp", alt: "Buffet D'Brescia" },
 ];
-
+const publishedGallery = window.unitGalleries?.[pageUnit] || [];
+const photos = publishedGallery.length >= 3 ? publishedGallery : [...publishedGallery, ...fallbackPhotos].slice(0, 3);
+const mediaItems = [
+  ...photos.map((photo, index) => ({
+    type: "photo",
+    label: ["A casa", "Ambiente", "Detalhes"][index] || "Galeria",
+    title: index === 0 ? `D'Brescia ${unit.name}` : `D'Brescia ${unit.name} · Foto ${index + 1}`,
+    description: "Um registro da experiência e da hospitalidade da nossa unidade.",
+    image: photo.src,
+    alt: photo.alt,
+    thumb: photo.src,
+  })),
+  { type: "video", label: "Em vídeo", title: "Veja a D'Brescia em movimento", description: "Um registro da nossa história e da atmosfera que une cada casa.", image: "assets/optimized/ambiente.webp", alt: "Vídeo institucional D'Brescia", thumb: "assets/optimized/story-video.webp", video: "GO7LX_fqPFc" },
+];
 document.querySelectorAll("[data-unit-name]").forEach((node) => { node.textContent = unit.name; });
 document.querySelectorAll("[data-unit-tag]").forEach((node) => { node.textContent = unit.tag; });
 document.querySelectorAll("[data-unit-address]").forEach((node) => { node.textContent = unit.address; });
-document.querySelectorAll("[data-unit-image]").forEach((node) => { node.src = `${base}${unit.image}`; node.alt = `Ambiente da unidade D'Brescia ${unit.name}`; });
+document.querySelectorAll("[data-unit-image]").forEach((node) => {
+  node.src = `${base}${publishedGallery[0]?.src || unit.image}`;
+  node.alt = `Ambiente da unidade D'Brescia ${unit.name}`;
+});
 document.querySelectorAll("[data-unit-whatsapp]").forEach((node) => { node.href = unit.whatsapp; });
 document.querySelectorAll("[data-unit-map]").forEach((node) => { node.href = `https://www.google.com/maps/search/?api=1&query=${query}`; });
-
 const rail = document.querySelector("[data-story-rail]");
-rail.innerHTML = stories.map((story, index) => `<button class="story-card" type="button" data-story="${index}" aria-label="Abrir ${story.label}: ${story.title}"><span class="story-ring"><img src="${base}${story.thumb || story.image}" alt="" loading="lazy" decoding="async"></span><span>${story.label}</span>${story.type === "video" ? '<b aria-hidden="true">▶</b>' : ""}</button>`).join("");
+rail.innerHTML = mediaItems.slice(0, 4).map((story, index) => `<button class="story-card" type="button" data-story="${index}" aria-label="Abrir ${story.label}: ${story.title}"><span class="story-ring"><img src="${base}${story.thumb || story.image}" alt="" loading="lazy" decoding="async"></span><span>${story.label}</span>${story.type === "video" ? '<b aria-hidden="true">▶</b>' : ""}</button>`).join("");
 
 const gallery = document.querySelector("[data-gallery]");
-gallery.innerHTML = stories.map((story, index) => `<button class="gallery-card gallery-card--${story.type}" type="button" data-story="${index}"><img src="${base}${story.image}" alt="" loading="lazy" decoding="async"><span>${story.type === "video" ? "▶ Vídeo" : "Galeria"}</span><strong>${story.title}</strong></button>`).join("");
+gallery.innerHTML = mediaItems.map((story, index) => `<button class="gallery-card gallery-card--${story.type}" type="button" data-story="${index}"><img src="${base}${story.image}" alt="" loading="lazy" decoding="async"><span>${story.type === "video" ? "▶ Vídeo" : "Galeria"}</span><strong>${story.title}</strong></button>`).join("");
 
 const dialog = document.querySelector("#story-dialog");
 const dialogBody = document.querySelector("[data-story-dialog-body]");
 let activeStory = 0;
 function renderStory(index) {
-  activeStory = (index + stories.length) % stories.length;
-  const story = stories[activeStory];
-  const progress = stories.map((_, progressIndex) => `<i class="${progressIndex <= activeStory ? "is-active" : ""}"></i>`).join("");
+  activeStory = (index + mediaItems.length) % mediaItems.length;
+  const story = mediaItems[activeStory];
+  const progress = mediaItems.map((_, progressIndex) => `<i class="${progressIndex <= activeStory ? "is-active" : ""}"></i>`).join("");
   const media = story.type === "video"
     ? `<iframe src="https://www.youtube-nocookie.com/embed/${story.video}?autoplay=1&rel=0" title="Vídeo D'Brescia" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
-    : `<img src="${base}${story.image}" alt="${story.title}">`;
+    : `<img src="${base}${story.image}" alt="${story.alt || story.title}">`;
   dialogBody.innerHTML = `<div class="story-progress" aria-hidden="true">${progress}</div><button class="story-close" type="button" data-story-close aria-label="Fechar galeria">×</button><button class="story-nav story-nav--previous" type="button" data-story-previous aria-label="Foto anterior">‹</button><div class="story-media">${media}</div><div class="story-caption"><span>${story.label}</span><h2>${story.title}</h2><p>${story.description}</p></div><button class="story-nav story-nav--next" type="button" data-story-next aria-label="Próxima foto">›</button>`;
   dialog.querySelector("[data-story-close]").focus();
   dialog.querySelector("[data-story-close]").addEventListener("click", () => dialog.close());
