@@ -99,6 +99,38 @@ mobileMenu.addEventListener("close", () => { document.body.classList.remove("men
 mobileMenu.addEventListener("cancel", () => menuButton.setAttribute("aria-expanded", "false"));
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const proofBand = document.querySelector(".proof-band");
+function animateProofNumbers() {
+  proofBand?.querySelectorAll("strong").forEach((number) => {
+    const finalText = number.textContent.trim();
+    const match = finalText.match(/^(\d+)(.*)$/);
+    if (!match) return;
+
+    const target = Number(match[1]);
+    const suffix = match[2];
+    const duration = 900;
+    const start = performance.now();
+    number.textContent = `0${suffix}`;
+
+    const update = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      number.textContent = `${Math.round(target * eased)}${suffix}`;
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  });
+}
+
+if (!reduceMotion && proofBand && "IntersectionObserver" in window) {
+  const proofObserver = new IntersectionObserver((entries, observer) => entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      animateProofNumbers();
+      observer.unobserve(entry.target);
+    }
+  }), { threshold: 0.45 });
+  proofObserver.observe(proofBand);
+}
 const revealTargets = document.querySelectorAll(".proof-band, .section, .partners, .closing, .site-footer");
 if (!reduceMotion && "IntersectionObserver" in window) {
   revealTargets.forEach((target) => target.classList.add("reveal"));
