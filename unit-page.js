@@ -21,15 +21,12 @@ const fallbackPhotos = [
 ];
 const publishedGallery = window.unitGalleries?.[pageUnit] || [];
 const photos = publishedGallery.length >= 3 ? publishedGallery : [...publishedGallery, ...fallbackPhotos].slice(0, 3);
-const mediaItems = [
-  ...photos.map((photo, index) => ({
-    type: "photo", label: ["A casa", "Ambiente", "Detalhes"][index] || "Galeria",
-    title: index === 0 ? `D'Brescia ${unit.name}` : `D'Brescia ${unit.name} · Foto ${index + 1}`,
-    description: "Um registro da experiência e da hospitalidade da nossa unidade.", image: photo.src,
-    alt: photo.alt, thumb: photo.src,
-  })),
-  { type: "video", label: "Em vídeo", title: "Veja a D'Brescia em movimento", description: "Um registro da nossa história e da atmosfera que une cada casa.", image: "assets/optimized/ambiente.webp", alt: "Vídeo institucional D'Brescia", thumb: "assets/optimized/story-video.webp", video: "GO7LX_fqPFc" },
-];
+const mediaItems = photos.map((photo, index) => ({
+  type: "photo", label: ["A casa", "Ambiente", "Detalhes"][index] || "Galeria",
+  title: index === 0 ? `D'Brescia ${unit.name}` : `D'Brescia ${unit.name} · Foto ${index + 1}`,
+  description: "Um registro da experiência e da hospitalidade da nossa unidade.", image: photo.src,
+  alt: photo.alt, thumb: photo.src,
+}));
 document.querySelectorAll("[data-unit-name]").forEach((node) => { node.textContent = unit.name; });
 document.querySelectorAll("[data-unit-tag]").forEach((node) => { node.textContent = unit.tag; });
 document.querySelectorAll("[data-unit-address]").forEach((node) => { node.textContent = unit.address; });
@@ -41,38 +38,41 @@ const rail = document.querySelector("[data-story-rail]");
 rail.innerHTML = mediaItems.slice(0, 4).map((story, index) => `<button class="story-card" type="button" data-story="${index}" aria-label="Abrir ${story.label}: ${story.title}"><span class="story-ring"><img src="${base}${story.thumb || story.image}" alt="" loading="lazy" decoding="async"></span><span>${story.label}</span>${story.type === "video" ? '<b aria-hidden="true">▶</b>' : ""}</button>`).join("");
 
 const gallery = document.querySelector("[data-gallery]");
-gallery.innerHTML = `<div class="gallery-viewer"><button class="gallery-viewer__main" type="button" data-gallery-open aria-label="Abrir foto em tela cheia"><img data-gallery-image src="" alt=""><span class="gallery-viewer__play" aria-hidden="true">▶</span></button><div class="gallery-viewer__thumbs" role="tablist" aria-label="Fotos da unidade">${mediaItems.map((story, index) => `<button class="gallery-viewer__thumb" type="button" role="tab" data-gallery-thumb="${index}" aria-selected="false" aria-label="Ver ${story.label}"><img src="${base}${story.thumb || story.image}" alt="" loading="lazy" decoding="async">${story.type === "video" ? '<span aria-hidden="true">▶</span>' : ""}</button>`).join("")}</div></div>`;
+gallery.innerHTML = `<div class="gallery-viewer" role="region" aria-label="Galeria de fotos da unidade ${unit.name}"><div class="gallery-viewer__stage"><button class="gallery-viewer__control gallery-viewer__control--previous" type="button" data-gallery-previous aria-label="Foto anterior"><span aria-hidden="true">←</span></button><div class="gallery-viewer__main" data-gallery-main aria-live="polite"><img data-gallery-image src="" alt=""></div><button class="gallery-viewer__control gallery-viewer__control--next" type="button" data-gallery-next aria-label="Próxima foto"><span aria-hidden="true">→</span></button></div><div class="gallery-viewer__toolbar"><p class="gallery-viewer__count" data-gallery-count aria-live="polite"></p><div class="gallery-viewer__thumbs" aria-label="Fotos da unidade">${mediaItems.map((story, index) => `<button class="gallery-viewer__thumb" type="button" data-gallery-thumb="${index}" aria-pressed="false" aria-label="Ver foto ${index + 1} de ${mediaItems.length}: ${story.alt}"><img src="${base}${story.thumb || story.image}" alt="" loading="lazy" decoding="async"></button>`).join("")}</div></div></div>`;
 let activeGalleryItem = 0;
 const galleryImage = gallery.querySelector("[data-gallery-image]");
-const galleryOpen = gallery.querySelector("[data-gallery-open]");
-const galleryPlay = gallery.querySelector(".gallery-viewer__play");
+const galleryMain = gallery.querySelector("[data-gallery-main]");
+const galleryCount = gallery.querySelector("[data-gallery-count]");
+const galleryPrevious = gallery.querySelector("[data-gallery-previous]");
+const galleryNext = gallery.querySelector("[data-gallery-next]");
 function setGalleryItem(index, focus = false) {
   activeGalleryItem = (index + mediaItems.length) % mediaItems.length;
   const item = mediaItems[activeGalleryItem];
   galleryImage.src = `${base}${item.image}`;
   galleryImage.alt = item.alt || item.title;
-  galleryOpen.setAttribute("aria-label", `Abrir ${item.label} em tela cheia`);
-  galleryPlay.hidden = item.type !== "video";
+  galleryCount.textContent = `${activeGalleryItem + 1} / ${mediaItems.length}`;
   gallery.querySelectorAll("[data-gallery-thumb]").forEach((thumb, thumbIndex) => {
     const selected = thumbIndex === activeGalleryItem;
     thumb.classList.toggle("is-active", selected);
-    thumb.setAttribute("aria-selected", String(selected));
+    thumb.setAttribute("aria-pressed", String(selected));
+    thumb.setAttribute("aria-current", selected ? "true" : "false");
     if (selected) { thumb.scrollIntoView({ block: "nearest", inline: "center", behavior: focus ? "smooth" : "auto" }); }
   });
 }
 setGalleryItem(0);
 gallery.querySelectorAll("[data-gallery-thumb]").forEach((thumb) => thumb.addEventListener("click", () => setGalleryItem(Number(thumb.dataset.galleryThumb), true)));
+galleryPrevious.addEventListener("click", () => setGalleryItem(activeGalleryItem - 1, true));
+galleryNext.addEventListener("click", () => setGalleryItem(activeGalleryItem + 1, true));
 let galleryPointerStart = null;
-let galleryDidSwipe = false;
-galleryOpen.addEventListener("pointerdown", (event) => { galleryDidSwipe = false; galleryPointerStart = { x: event.clientX, y: event.clientY }; });
-galleryOpen.addEventListener("pointerup", (event) => {
+galleryMain.addEventListener("pointerdown", (event) => { galleryPointerStart = { x: event.clientX, y: event.clientY }; });
+galleryMain.addEventListener("pointerup", (event) => {
   if (!galleryPointerStart) return;
   const distanceX = event.clientX - galleryPointerStart.x;
   const distanceY = event.clientY - galleryPointerStart.y;
   galleryPointerStart = null;
-  if (Math.abs(distanceX) >= 48 && Math.abs(distanceX) > Math.abs(distanceY)) { galleryDidSwipe = true; setGalleryItem(activeGalleryItem + (distanceX < 0 ? 1 : -1), true); }
+  if (Math.abs(distanceX) >= 48 && Math.abs(distanceX) > Math.abs(distanceY)) { setGalleryItem(activeGalleryItem + (distanceX < 0 ? 1 : -1), true); }
 });
-galleryOpen.addEventListener("pointercancel", () => { galleryPointerStart = null; });
+galleryMain.addEventListener("pointercancel", () => { galleryPointerStart = null; });
 
 const dialog = document.querySelector("#story-dialog");
 const dialogBody = document.querySelector("[data-story-dialog-body]");
@@ -90,7 +90,6 @@ function renderStory(index) {
 }
 function openStory(index) { renderStory(index); dialog.showModal(); }
 document.querySelectorAll("[data-story]").forEach((button) => button.addEventListener("click", () => openStory(Number(button.dataset.story))));
-galleryOpen.addEventListener("click", (event) => { if (galleryDidSwipe) { event.preventDefault(); galleryDidSwipe = false; return; } openStory(activeGalleryItem); });
 dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
 dialog.addEventListener("keydown", (event) => { if (event.key === "ArrowLeft") renderStory(activeStory - 1); if (event.key === "ArrowRight") renderStory(activeStory + 1); });
 let storyPointerStart = null;
