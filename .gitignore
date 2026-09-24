@@ -1,0 +1,7 @@
+# Local Codex tooling and visual QA artifacts
+.github/agents/
+.github/hooks/
+.github/skills/
+qa-*.png
+Thumbs.db
+desktop.ini

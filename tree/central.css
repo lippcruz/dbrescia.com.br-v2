@@ -26,3 +26,4 @@
 
 .partner-mark{width:20px;height:20px;min-height:0;padding:0;border-radius:0;background:transparent!important;object-fit:contain}.partner-mark--ifood,.partner-mark--keeta{color:transparent}@media(max-width:760px){.partner-mark{width:18px;height:18px;min-height:0;padding:0}}
 .unit-card a[data-event-link]{display:none}.unit-card.is-event a[data-reservation],.unit-card.is-event a[data-delivery-link]{display:none}.unit-card.is-event a[data-event-link]{display:flex;color:#8c611f}.unit-card.is-event>a img{filter:saturate(1.02)}
+.section-heading{display:block}.section-heading>div>p:last-child{max-width:390px;margin:17px 0 0;color:var(--muted);font-size:15px;line-height:1.55}@media(max-width:760px){.section-heading>div>p:last-child{margin-top:15px}}
