@@ -33,6 +33,14 @@ function setMode(mode) {
 }
 
 buttons.forEach((button) => button.addEventListener('click', () => setMode(button.dataset.mode)));
+
+const requestedMode = new URLSearchParams(window.location.search).get('mode');
+if (["reservation", "delivery", "events"].includes(requestedMode)) {
+  setMode(requestedMode);
+  if (window.location.hash === "#unidades") {
+    requestAnimationFrame(() => document.querySelector("#unidades").scrollIntoView({ behavior: "auto", block: "start" }));
+  }
+}
 document.querySelector('[data-show-delivery]').addEventListener('click', () => {
   setMode('delivery');
   document.querySelector('#unidades').scrollIntoView({ behavior: 'smooth', block: 'start' });

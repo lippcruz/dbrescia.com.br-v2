@@ -1,4 +1,4 @@
-const centralLink = "https://linktr.ee/dbrescia";
+const centralLink = "https://dbrescia.com.br/tree/";
 
 const menuItems = {
   carnes: { title: "Categoria selecionada · Carnes", points: ["Picanha nobre e cortes especiais", "Bife ancho, chorizo e assado de tira", "Costela premium e cordeiro", "Seleção rotativa do mestre churrasqueiro"], images: ["assets/figma/dbc1e.png", "assets/figma/3e852.png", "assets/figma/bd625.png"], captions: ["Cortes nobres", "Buffet completo", "Sobremesas da casa"] },
@@ -17,6 +17,17 @@ const units = [
   { name: "Morumbi", slug: "morumbi", tag: "Zona Sul", address: "Av. Dr. Guilherme Dumont Vilares, 2394 · Vila Andrade", image: "assets/optimized/unidade-morumbi.webp", whatsapp: "https://wa.me/5511995706960" },
   { name: "São Bernardo", slug: "sao-bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 77 · Planalto", image: "assets/optimized/unidade-sao-bernardo.webp", whatsapp: "https://wa.me/5511913662743" },
   { name: "Barra Funda", slug: "barra-funda", tag: "Zona Oeste", address: "Av. Marquês de São Vicente, 1771 · Várzea da Barra Funda", image: "assets/optimized/unidade-barra-funda.webp", whatsapp: "https://wa.me/5511943976727" },
+];
+
+const cardAmenityIcons = {
+  valet: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15h18v4H3zM5 15l1.5-5h11L19 15M8 10V7h8v3M6 19v2m12-2v2"/></svg>',
+  wifi: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9c5-4 13-4 18 0M6 13c3.5-3 8.5-3 12 0M9.5 17c1.5-1.3 3.5-1.3 5 0M12 21h.01"/></svg>',
+  kids: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V6l7-3 7 3v14M8 20v-5h8v5M9 9h.01M15 9h.01"/></svg>',
+};
+const cardAmenities = [
+  { icon: "valet", label: "Valet" },
+  { icon: "wifi", label: "Wi-Fi" },
+  { icon: "kids", label: "Espaço kids" },
 ];
 
 const menuPanel = document.querySelector("#menu-panel");
@@ -80,7 +91,7 @@ function setUnit(index) {
 }
 
 unitControls.innerHTML = units.map((unit, index) => `<button class="unit-thumb" type="button" data-unit="${index}" aria-pressed="false">${unit.name}</button>`).join("");
-unitGrid.innerHTML = units.map((unit) => `<a class="unit-card" href="unidades/${unit.slug}/" aria-label="Abrir página da unidade ${unit.name}"><img src="${unit.image}" alt="" loading="lazy" decoding="async"><div><strong>${unit.name}</strong><span>${unit.tag}</span></div><em>Conheça a unidade <span aria-hidden="true">→</span></em></a>`).join("");
+unitGrid.innerHTML = units.map((unit) => `<a class="unit-card" href="unidades/${unit.slug}/" aria-label="Abrir página da unidade ${unit.name}"><img src="${unit.image}" alt="" loading="lazy" decoding="async"><div><strong>${unit.name}</strong><span>${unit.tag}</span></div><ul class="unit-card__amenities" aria-label="Comodidades: ${cardAmenities.map((amenity) => amenity.label).join(", ")}">${cardAmenities.map((amenity) => `<li>${cardAmenityIcons[amenity.icon]}<span>${amenity.label}</span></li>`).join("")}</ul><em>Conheça a unidade <span aria-hidden="true">→</span></em></a>`).join("");
 
 document.querySelectorAll(".unit-thumb").forEach((button) => button.addEventListener("click", () => {
   setUnit(Number(button.dataset.unit));
