@@ -38,6 +38,11 @@ document.querySelector('[data-show-delivery]').addEventListener('click', () => {
   document.querySelector('#unidades').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
+document.querySelector('[data-show-events]').addEventListener('click', () => {
+  setMode('events');
+  document.querySelector('#unidades').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (!reduceMotion && 'IntersectionObserver' in window) {
   const revealTargets = document.querySelectorAll('.section-heading, .mode-switch, .unit-card, .delivery-note, .other-links__grid, .footer');
