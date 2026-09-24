@@ -14,13 +14,10 @@ const units = {
 };
 const unit = units[pageUnit];
 const query = encodeURIComponent(unit.address);
-const fallbackPhotos = [
-  { src: "assets/optimized/ambiente.webp", alt: "Ambiente D'Brescia" },
-  { src: "assets/optimized/story-fogo.webp", alt: "Cortes nobres D'Brescia" },
-  { src: "assets/optimized/story-buffet.webp", alt: "Buffet D'Brescia" },
-];
 const publishedGallery = window.unitGalleries?.[pageUnit] || [];
-const photos = publishedGallery.length >= 3 ? publishedGallery : [...publishedGallery, ...fallbackPhotos].slice(0, 3);
+const photos = publishedGallery.length ? publishedGallery : [
+  { src: unit.image, alt: `Fachada ou ambiente da unidade D'Brescia ${unit.name}` },
+];
 const mediaItems = photos.map((photo, index) => ({
   type: "photo", label: ["A casa", "Ambiente", "Detalhes"][index] || "Galeria",
   title: index === 0 ? `D'Brescia ${unit.name}` : `D'Brescia ${unit.name} · Foto ${index + 1}`,

@@ -9,14 +9,14 @@ const menuItems = {
 
 const units = [
   { name: "Santo André", slug: "santo-andre", tag: "ABC Paulista", address: "Av. Dom Pedro II, 444 · Jardim", image: "assets/optimized/unidade-santo-andre.webp", whatsapp: "https://wa.me/5511996057584" },
-  { name: "Paraíso", slug: "paraiso", tag: "Bela Vista", address: "Rua Pedro Ivo, 63 · Bela Vista", image: "assets/optimized/unidade-paraiso.webp", whatsapp: "https://wa.me/5511974663743" },
-  { name: "Faria Lima", slug: "faria-lima", tag: "Adega · Parrilla", address: "Av. Brig. Faria Lima, 3167", image: "assets/optimized/unidade-faria-lima.webp", whatsapp: "https://wa.me/5511978285657" },
-  { name: "Marginal Tietê", slug: "marginal-tiete", tag: "Zona Norte", address: "Pç. Bento de Camargo Barros, 172", image: "assets/optimized/unidade-marginal-tiete.webp", whatsapp: centralLink },
-  { name: "Guarulhos", slug: "guarulhos", tag: "Grande São Paulo", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-guarulhos.webp", whatsapp: centralLink },
-  { name: "Vila Mariana", slug: "vila-mariana", tag: "Zona Sul", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-vila-mariana.webp", whatsapp: centralLink },
-  { name: "Morumbi", slug: "morumbi", tag: "Zona Oeste", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-morumbi.webp", whatsapp: centralLink },
-  { name: "São Bernardo", slug: "sao-bernardo", tag: "ABC Paulista", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-sao-bernardo.webp", whatsapp: centralLink },
-  { name: "Barra Funda", slug: "barra-funda", tag: "Zona Oeste", address: "Endereço confirmado pela central D'Brescia", image: "assets/optimized/unidade-barra-funda.webp", whatsapp: centralLink },
+  { name: "Paraíso", slug: "paraiso", tag: "Bela Vista", address: "Rua Pedro Ivo, 63 · Paraíso", image: "assets/optimized/unidade-paraiso.webp", whatsapp: "https://wa.me/5511974663743" },
+  { name: "Faria Lima", slug: "faria-lima", tag: "Itaim Bibi", address: "Av. Brigadeiro Faria Lima, 3167", image: "assets/optimized/unidade-faria-lima.webp", whatsapp: "https://wa.me/5511978285657" },
+  { name: "Marginal Tietê", slug: "marginal-tiete", tag: "Zona Norte", address: "Praça Bento de Camargo Barros, 172", image: "assets/optimized/unidade-marginal-tiete.webp", whatsapp: "https://wa.me/5511913707061" },
+  { name: "Guarulhos", slug: "guarulhos", tag: "Grande São Paulo", address: "Av. Antônio de Souza, 186 · Jardim Santa Francisca", image: "assets/optimized/unidade-guarulhos.webp", whatsapp: "https://wa.me/5511977891460" },
+  { name: "Vila Mariana", slug: "vila-mariana", tag: "Zona Sul", address: "Rua Pedro de Toledo, 1361 · Vila Mariana", image: "assets/optimized/unidade-vila-mariana.webp", whatsapp: "https://wa.me/5511925296446" },
+  { name: "Morumbi", slug: "morumbi", tag: "Zona Sul", address: "Av. Dr. Guilherme Dumont Vilares, 2394 · Vila Andrade", image: "assets/optimized/unidade-morumbi.webp", whatsapp: "https://wa.me/5511995706960" },
+  { name: "São Bernardo", slug: "sao-bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 77 · Planalto", image: "assets/optimized/unidade-sao-bernardo.webp", whatsapp: "https://wa.me/5511913662743" },
+  { name: "Barra Funda", slug: "barra-funda", tag: "Zona Oeste", address: "Av. Marquês de São Vicente, 1771 · Várzea da Barra Funda", image: "assets/optimized/unidade-barra-funda.webp", whatsapp: "https://wa.me/5511943976727" },
 ];
 
 const menuPanel = document.querySelector("#menu-panel");
