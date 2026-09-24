@@ -1,10 +1,10 @@
 const centralLink = "https://dbrescia.com.br/tree/";
 
 const menuItems = {
-  carnes: { title: "Categoria selecionada · Carnes", points: ["Picanha nobre e cortes especiais", "Bife ancho, chorizo e assado de tira", "Costela premium e cordeiro", "Seleção rotativa do mestre churrasqueiro"], images: ["assets/figma/dbc1e.png", "assets/figma/3e852.png", "assets/figma/bd625.png"], captions: ["Cortes nobres", "Buffet completo", "Sobremesas da casa"] },
-  buffet: { title: "Categoria selecionada · Buffet", points: ["26 tipos de saladas e entradas frescas", "Culinária japonesa e pratos quentes", "Acompanhamentos clássicos do churrasco", "Reposição constante durante o serviço"], images: ["assets/figma/3e852.png", "assets/figma/dbc1e.png", "assets/optimized/ambiente.webp"], captions: ["Buffet completo", "Cortes da casa", "Ambiente acolhedor"] },
-  bebidas: { title: "Categoria selecionada · Bebidas", points: ["Vinhos selecionados para cortes nobres", "Chopp gelado e cervejas parceiras", "Drinques clássicos e autorais", "Atendimento por unidade para eventos"], images: ["assets/optimized/ambiente.webp", "assets/figma/53ff4.png", "assets/figma/cb8c1.png"], captions: ["Adega e salão", "Ambev", "Brahma"] },
-  sobremesas: { title: "Categoria selecionada · Sobremesas", points: ["Produção diária feita na casa", "Receitas clássicas para fechar o rodízio", "Opções cremosas, frutas e doces brasileiros", "Seleção rotativa conforme a unidade"], images: ["assets/figma/bd625.png", "assets/figma/3e852.png", "assets/figma/dbc1e.png"], captions: ["Sobremesas da casa", "Buffet completo", "Cortes nobres"] },
+  carnes: { title: "Carnes", points: ["Picanha nobre e cortes especiais", "Bife ancho, chorizo e assado de tira", "Costela premium e cordeiro", "Seleção rotativa do mestre churrasqueiro"], images: ["assets/figma/dbc1e.png", "assets/figma/3e852.png", "assets/figma/bd625.png"], captions: ["Cortes nobres", "Buffet completo", "Sobremesas da casa"] },
+  buffet: { title: "Buffet", points: ["26 tipos de saladas e entradas frescas", "Culinária japonesa e pratos quentes", "Acompanhamentos clássicos do churrasco", "Reposição constante durante o serviço"], images: ["assets/figma/3e852.png", "assets/figma/dbc1e.png", "assets/optimized/ambiente.webp"], captions: ["Buffet completo", "Cortes da casa", "Ambiente acolhedor"] },
+  bebidas: { title: "Bebidas", points: ["Vinhos selecionados para cortes nobres", "Chopp gelado e cervejas parceiras", "Drinques clássicos e autorais", "Atendimento por unidade para eventos"], images: ["assets/optimized/ambiente.webp", "assets/figma/53ff4.png", "assets/figma/cb8c1.png"], captions: ["Adega e salão", "Ambev", "Brahma"] },
+  sobremesas: { title: "Sobremesas", points: ["Produção diária feita na casa", "Receitas clássicas para fechar o rodízio", "Opções cremosas, frutas e doces brasileiros", "Seleção rotativa conforme a unidade"], images: ["assets/figma/bd625.png", "assets/figma/3e852.png", "assets/figma/dbc1e.png"], captions: ["Sobremesas da casa", "Buffet completo", "Cortes nobres"] },
 };
 
 const units = [
@@ -119,7 +119,7 @@ function animateProofNumbers() {
 
     const target = Number(match[1]);
     const suffix = match[2];
-    const duration = 900;
+    const duration = 2400;
     const start = performance.now();
     number.textContent = `0${suffix}`;
 
@@ -134,12 +134,27 @@ function animateProofNumbers() {
 }
 
 if (!reduceMotion && proofBand && "IntersectionObserver" in window) {
-  const proofObserver = new IntersectionObserver((entries, observer) => entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      animateProofNumbers();
-      observer.unobserve(entry.target);
-    }
-  }), { threshold: 0.45 });
+  let proofBandVisible = false;
+  let proofAnimationStarted = false;
+  let hasUserScrolled = false;
+
+  const startProofAnimation = () => {
+    if (!hasUserScrolled || !proofBandVisible || proofAnimationStarted) return;
+    proofAnimationStarted = true;
+    animateProofNumbers();
+    proofObserver.unobserve(proofBand);
+  };
+
+  const proofObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    proofBandVisible = entry.isIntersecting;
+    startProofAnimation();
+  }), { threshold: 0.65 });
+
+  window.addEventListener("scroll", () => {
+    hasUserScrolled = true;
+    startProofAnimation();
+  }, { passive: true, once: true });
+
   proofObserver.observe(proofBand);
 }
 const revealTargets = document.querySelectorAll(".proof-band, .section, .partners, .closing, .site-footer");

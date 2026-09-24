@@ -468,7 +468,8 @@ h3 {
   align-items: center;
   padding-left: max(24px, calc((100vw - var(--container)) / 2));
   padding-right: max(24px, calc((100vw - var(--container)) / 2));
-  background: var(--surface);
+  background: var(--ivory);
+  color: #120d08;
 }
 
 .experience-image img {
@@ -516,6 +517,20 @@ h3 {
   margin-top: -12px;
   color: var(--muted);
   font-size: 15px;
+}
+
+.experience .eyebrow {
+  color: #7d5218;
+}
+
+.experience-copy > p,
+.experience .feature-list small {
+  color: #564838;
+}
+
+.experience .feature-list,
+.experience .feature-list li {
+  border-color: rgba(18, 13, 8, 0.16);
 }
 
 .section-head {
@@ -854,7 +869,9 @@ h3 {
 
 .press-item img {
   width: 220px;
-  height: 190px;
+  min-height: 190px;
+  height: 100%;
+  align-self: stretch;
   object-fit: cover;
   grid-row: span 2;
 }
@@ -1718,5 +1735,41 @@ h3 {
 
   .closing .hero-actions {
     width: 100%;
+  }
+}
+@media (min-width: 761px) {
+  .partners h2 {
+    max-width: 760px;
+    text-wrap: balance;
+  }
+}
+@media (max-width: 1020px) {
+  .press-item img {
+    min-height: 0;
+  }
+}
+/* Cards de imprensa: imagem preenche a altura do card no desktop. */
+@media (min-width: 1021px) {
+  .press-item {
+    grid-template-rows: 1fr 1fr;
+    align-items: stretch;
+    align-content: stretch;
+  }
+
+  .press-item img {
+    grid-row: 1 / -1;
+    min-height: 0;
+    height: 100%;
+    align-self: stretch;
+  }
+
+  .press-item span {
+    grid-column: 2;
+    align-self: end;
+  }
+
+  .press-item strong {
+    grid-column: 2;
+    align-self: start;
   }
 }
