@@ -4,5 +4,5 @@
  * Um ID de medição é público; não coloque chaves, senhas ou tokens neste arquivo.
  */
 window.DBRESCIA_ANALYTICS = {
-  measurementId: "",
+  measurementId: "G-HC0LY78QS7",
 };
