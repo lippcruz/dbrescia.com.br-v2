@@ -9,14 +9,14 @@ const menuImages = {
   buffet: responsiveImage("menu-buffet", [480, 960]),
   sobremesas: responsiveImage("menu-sobremesas", [480, 960]),
   ambiente: responsiveImage("ambiente", [800, 1200], 1400),
-  ambev: { src: "assets/figma/53ff4.png", srcset: "" },
-  brahma: { src: "assets/figma/cb8c1.png", srcset: "" },
+  chopp: responsiveImage("menu-chopp", [480, 960]),
+  vinhos: responsiveImage("menu-vinhos", [480, 960]),
 };
 
 const menuItems = {
   carnes: { title: "Carnes", points: ["Picanha nobre e cortes especiais", "Bife ancho, chorizo e assado de tira", "Costela premium e cordeiro", "Seleção rotativa do mestre churrasqueiro"], images: [menuImages.carnes, menuImages.buffet, menuImages.sobremesas], captions: ["Cortes nobres", "Buffet completo", "Sobremesas da casa"] },
   buffet: { title: "Buffet", points: ["26 tipos de saladas e entradas frescas", "Culinária japonesa e pratos quentes", "Acompanhamentos clássicos do churrasco", "Reposição constante durante o serviço"], images: [menuImages.buffet, menuImages.carnes, menuImages.ambiente], captions: ["Buffet completo", "Cortes da casa", "Ambiente acolhedor"] },
-  bebidas: { title: "Bebidas", points: ["Vinhos selecionados para cortes nobres", "Chopp gelado e cervejas parceiras", "Drinques clássicos e autorais", "Atendimento por unidade para eventos"], images: [menuImages.ambiente, menuImages.ambev, menuImages.brahma], captions: ["Adega e salão", "Ambev", "Brahma"] },
+  bebidas: { title: "Bebidas", points: ["Vinhos selecionados para cortes nobres", "Chopp gelado e cervejas parceiras", "Drinques clássicos e autorais", "Atendimento por unidade para eventos"], images: [menuImages.chopp, menuImages.vinhos, menuImages.ambiente], captions: ["Chopp Brahma", "Vinhos selecionados", "Adega e salão"] },
   sobremesas: { title: "Sobremesas", points: ["Produção diária feita na casa", "Receitas clássicas para fechar o rodízio", "Opções cremosas, frutas e doces brasileiros", "Seleção rotativa conforme a unidade"], images: [menuImages.sobremesas, menuImages.buffet, menuImages.carnes], captions: ["Sobremesas da casa", "Buffet completo", "Cortes nobres"] },
 };
 
