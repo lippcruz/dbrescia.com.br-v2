@@ -10,27 +10,36 @@
     />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="theme-color" content="#070606" />
-    <link rel="canonical" href="https://lippcruz.github.io/dbrescia.com.br-v2/" />
+    <link rel="canonical" href="https://dbrescia.com.br/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="D'Brescia Churrascaria" />
     <meta property="og:title" content="D'Brescia Churrascaria | Rodízio, cortes nobres e eventos" />
     <meta property="og:description" content="Cortes nobres, buffet completo e hospitalidade em 9 unidades na Grande São Paulo." />
-    <meta property="og:url" content="https://lippcruz.github.io/dbrescia.com.br-v2/" />
-    <meta property="og:image" content="https://lippcruz.github.io/dbrescia.com.br-v2/assets/optimized/hero-fire.webp" />
+    <meta property="og:url" content="https://dbrescia.com.br/" />
+    <meta property="og:image" content="https://dbrescia.com.br/assets/optimized/hero-fire.webp" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preload" as="image" href="assets/optimized/hero-fire.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/optimized/hero-fire-mobile.webp" media="(max-width: 620px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/optimized/hero-fire.webp" media="(min-width: 621px)" fetchpriority="high" />
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorant-garamond-700.woff2" crossorigin />
     <link rel="manifest" href="site.webmanifest" />
-    <link rel="stylesheet" href="assets/fonts/google-fonts.css" />
+    <style>
+      @font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 700; font-display: swap; src: url("assets/fonts/cormorant-garamond-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/inter-400.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-style: normal; font-weight: 700; font-display: swap; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+    </style>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
     <header class="site-header" id="inicio">
       <div class="hero-bg" aria-hidden="true">
-        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/optimized/hero-fire.webp">
-          <source src="content/img/comrpessed-fire.mp4" type="video/mp4" />
-        </video>
+        <picture>
+          <source media="(max-width: 620px)" srcset="assets/optimized/hero-fire-mobile.webp" width="640" height="1067" />
+          <img class="hero-poster" src="assets/optimized/hero-fire.webp" alt="" width="1600" height="1067" fetchpriority="high" />
+        </picture>
+        <video class="hero-video" muted loop playsinline preload="none" data-src="content/img/comrpessed-fire.mp4"></video>
       </div>
       <div class="container header-shell">
         <div class="topbar">
@@ -40,7 +49,7 @@
 
         <nav class="main-nav" aria-label="Navegação principal">
           <a class="brand" href="#inicio" aria-label="D'Brescia Churrascaria">
-            <img src="assets/figma/fe874.png" alt="D'Brescia" />
+            <img src="assets/figma/fe874.png" alt="D'Brescia" width="301" height="42" />
           </a>
           <div class="nav-links">
             <a href="#cardapio">Cardápio</a>
@@ -73,7 +82,7 @@
 
     <dialog class="mobile-menu" id="mobile-menu" aria-label="Menu principal">
       <div class="mobile-menu-head">
-        <img src="assets/figma/fe874.png" alt="D'Brescia" />
+        <img src="assets/figma/fe874.png" alt="D'Brescia" width="301" height="42" />
         <button type="button" data-close-menu aria-label="Fechar menu">×</button>
       </div>
       <nav>
@@ -119,15 +128,15 @@
           </div>
           <div class="menu-gallery" aria-label="Fotos do cardápio">
             <figure class="gallery-main">
-              <img src="assets/figma/dbc1e.png" alt="Cortes nobres" data-menu-image-main />
+              <img src="assets/optimized/menu-carnes-960.webp" srcset="assets/optimized/menu-carnes-480.webp 480w, assets/optimized/menu-carnes-960.webp 960w" sizes="(max-width: 980px) 60vw, 420px" alt="Cortes nobres" loading="lazy" decoding="async" data-menu-image-main />
               <figcaption data-menu-caption-main>Cortes nobres</figcaption>
             </figure>
             <figure>
-              <img src="assets/figma/3e852.png" alt="Buffet completo" data-menu-image-side />
+              <img src="assets/optimized/menu-buffet-960.webp" srcset="assets/optimized/menu-buffet-480.webp 480w, assets/optimized/menu-buffet-960.webp 960w" sizes="(max-width: 980px) 40vw, 320px" alt="Buffet completo" loading="lazy" decoding="async" data-menu-image-side />
               <figcaption data-menu-caption-side>Buffet completo</figcaption>
             </figure>
             <figure>
-              <img src="assets/figma/bd625.png" alt="Sobremesas da casa" data-menu-image-bottom />
+              <img src="assets/optimized/menu-sobremesas-960.webp" srcset="assets/optimized/menu-sobremesas-480.webp 480w, assets/optimized/menu-sobremesas-960.webp 960w" sizes="(max-width: 980px) 40vw, 450px" alt="Sobremesas da casa" loading="lazy" decoding="async" data-menu-image-bottom />
               <figcaption data-menu-caption-bottom>Sobremesas da casa</figcaption>
             </figure>
           </div>
@@ -136,7 +145,7 @@
 
       <section class="section experience" id="experiencia">
         <div class="experience-image">
-          <img src="assets/optimized/ambiente.webp" alt="Ambiente da D'Brescia" />
+          <img src="assets/optimized/ambiente-1200.webp" srcset="assets/optimized/ambiente-800.webp 800w, assets/optimized/ambiente-1200.webp 1200w, assets/optimized/ambiente.webp 1400w" sizes="(max-width: 980px) 100vw, 50vw" alt="Ambiente da D'Brescia" loading="lazy" decoding="async" />
         </div>
         <div class="experience-copy">
           <p class="eyebrow">Experiência D'Brescia</p>
@@ -164,7 +173,7 @@
           </div>
 
           <div class="unit-feature" aria-live="polite">
-            <img data-unit-main-image src="assets/optimized/unidade-santo-andre.webp" alt="Unidade Santo André" />
+            <img data-unit-main-image src="assets/optimized/unidade-santo-andre.webp" srcset="assets/optimized/unidade-santo-andre-480.webp 480w, assets/optimized/unidade-santo-andre-800.webp 800w, assets/optimized/unidade-santo-andre.webp 1200w" sizes="(max-width: 980px) 100vw, 60vw" alt="Unidade Santo André" loading="lazy" decoding="async" />
             <div>
               <span data-unit-index>01 / 09</span>
               <h3 data-unit-name>Santo André</h3>
@@ -184,7 +193,7 @@
       <section class="section events" id="eventos">
         <div class="container events-layout">
           <figure>
-            <img src="assets/optimized/ambiente.webp" alt="Ambiente preparado para eventos" />
+            <img src="assets/optimized/ambiente-1200.webp" srcset="assets/optimized/ambiente-800.webp 800w, assets/optimized/ambiente-1200.webp 1200w, assets/optimized/ambiente.webp 1400w" sizes="(max-width: 980px) 100vw, 50vw" alt="Ambiente preparado para eventos" loading="lazy" decoding="async" />
             <figcaption>
               <strong>Ambientes preparados para receber bem.</strong>
               <span>Eventos corporativos · celebrações · grupos</span>
@@ -229,7 +238,7 @@
             </div>
           </div>
           <a class="video-card" href="https://www.youtube.com/watch?v=GO7LX_fqPFc" target="_blank" rel="noreferrer">
-            <img src="assets/optimized/historia.webp" alt="Edival Spricigo e Cléber Broch" />
+            <img src="assets/optimized/historia-1200.webp" srcset="assets/optimized/historia-480.webp 480w, assets/optimized/historia-800.webp 800w, assets/optimized/historia-1200.webp 1200w" sizes="(max-width: 980px) 100vw, 50vw" alt="Edival Spricigo e Cléber Broch" loading="lazy" decoding="async" />
             <span>▶ Assistir história</span>
           </a>
         </div>
@@ -272,17 +281,17 @@
           </div>
           <div class="press-grid">
             <a class="press-main" href="https://exame.com/negocios/o-paulista-e-o-catarinense-que-vao-faturar-r-250-milhoes-com-churrasco-tipicamente-gaucho/" target="_blank" rel="noreferrer">
-              <img src="assets/optimized/historia.webp" alt="Entrevista D'Brescia" />
+              <img src="assets/optimized/historia-1200.webp" srcset="assets/optimized/historia-480.webp 480w, assets/optimized/historia-800.webp 800w, assets/optimized/historia-1200.webp 1200w" sizes="(max-width: 980px) 100vw, 50vw" alt="Entrevista D'Brescia" loading="lazy" decoding="async" />
               <span>Exame · 20 set 2025</span>
               <strong>O crescimento da D'Brescia e a meta de R$ 250 milhões.</strong>
             </a>
             <a class="press-item" href="https://www.reporterdiario.com.br/noticia/3321162/rd-momento-economico-27-09-2023-as-18h-churrascaria-dbrescia-avanca-com-4a-unidade/" target="_blank" rel="noreferrer">
-              <img src="assets/figma/586be.png" alt="Repórter Diário" />
+              <img src="assets/optimized/press-reporter-diario.webp" alt="Repórter Diário" width="600" height="400" loading="lazy" decoding="async" />
               <span>Repórter Diário · 27 set 2023</span>
               <strong>A estratégia de expansão com unidades próprias.</strong>
             </a>
             <a class="press-item" href="https://tvsaobernardo.com/churrascaria-dbrescia-inaugura-amanha-no-planalto/" target="_blank" rel="noreferrer">
-              <img src="assets/figma/26440.png" alt="TV São Bernardo" />
+              <img src="assets/optimized/press-tv-sao-bernardo-800.webp" srcset="assets/optimized/press-tv-sao-bernardo-480.webp 480w, assets/optimized/press-tv-sao-bernardo-800.webp 800w" sizes="(max-width: 980px) 100vw, 380px" alt="TV São Bernardo" loading="lazy" decoding="async" />
               <span>TV São Bernardo · 26 nov 2025</span>
               <strong>Uma nova casa de 2.200 m² no ABC.</strong>
             </a>
@@ -308,7 +317,7 @@
 
     <footer class="site-footer">
       <div class="container footer-layout">
-        <img src="assets/figma/fe874.png" alt="D'Brescia" />
+        <img src="assets/figma/fe874.png" alt="D'Brescia" width="301" height="42" loading="lazy" />
         <nav aria-label="Links do rodapé">
           <a href="#cardapio">Cardápio</a>
           <a href="#unidades">Unidades</a>
@@ -332,7 +341,7 @@
     </nav>
 
     <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Restaurant","name":"D'Brescia Churrascaria","description":"Rodízio com cortes nobres, buffet completo e espaços para eventos na Grande São Paulo.","url":"https://lippcruz.github.io/dbrescia.com.br-v2/","image":"https://lippcruz.github.io/dbrescia.com.br-v2/assets/optimized/hero-fire.webp","servesCuisine":["Churrasco gaúcho","Brasileira"],"areaServed":"Grande São Paulo","sameAs":["https://www.instagram.com/dbresciachurrascaria/","https://www.facebook.com/dbresciachurrascaria/"]}
+{"@context":"https://schema.org","@type":"Restaurant","name":"D'Brescia Churrascaria","description":"Rodízio com cortes nobres, buffet completo e espaços para eventos na Grande São Paulo.","url":"https://dbrescia.com.br/","image":"https://dbrescia.com.br/assets/optimized/hero-fire.webp","servesCuisine":["Churrasco gaúcho","Brasileira"],"areaServed":"Grande São Paulo","sameAs":["https://www.instagram.com/dbresciachurrascaria/","https://www.facebook.com/dbresciachurrascaria/"]}
 </script>
 <script src="script.js" defer></script>
       <script src="analytics-config.js"></script>

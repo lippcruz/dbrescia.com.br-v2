@@ -1,22 +1,35 @@
 const centralLink = "https://dbrescia.com.br/tree/";
 
+const responsiveImage = (base, widths, full) => ({
+  src: `assets/optimized/${base}-${widths.at(-1)}.webp`,
+  srcset: [...widths.map((width) => `assets/optimized/${base}-${width}.webp ${width}w`), ...(full ? [`assets/optimized/${base}.webp ${full}w`] : [])].join(", "),
+});
+const menuImages = {
+  carnes: responsiveImage("menu-carnes", [480, 960]),
+  buffet: responsiveImage("menu-buffet", [480, 960]),
+  sobremesas: responsiveImage("menu-sobremesas", [480, 960]),
+  ambiente: responsiveImage("ambiente", [800, 1200], 1400),
+  ambev: { src: "assets/figma/53ff4.png", srcset: "" },
+  brahma: { src: "assets/figma/cb8c1.png", srcset: "" },
+};
+
 const menuItems = {
-  carnes: { title: "Carnes", points: ["Picanha nobre e cortes especiais", "Bife ancho, chorizo e assado de tira", "Costela premium e cordeiro", "Seleção rotativa do mestre churrasqueiro"], images: ["assets/figma/dbc1e.png", "assets/figma/3e852.png", "assets/figma/bd625.png"], captions: ["Cortes nobres", "Buffet completo", "Sobremesas da casa"] },
-  buffet: { title: "Buffet", points: ["26 tipos de saladas e entradas frescas", "Culinária japonesa e pratos quentes", "Acompanhamentos clássicos do churrasco", "Reposição constante durante o serviço"], images: ["assets/figma/3e852.png", "assets/figma/dbc1e.png", "assets/optimized/ambiente.webp"], captions: ["Buffet completo", "Cortes da casa", "Ambiente acolhedor"] },
-  bebidas: { title: "Bebidas", points: ["Vinhos selecionados para cortes nobres", "Chopp gelado e cervejas parceiras", "Drinques clássicos e autorais", "Atendimento por unidade para eventos"], images: ["assets/optimized/ambiente.webp", "assets/figma/53ff4.png", "assets/figma/cb8c1.png"], captions: ["Adega e salão", "Ambev", "Brahma"] },
-  sobremesas: { title: "Sobremesas", points: ["Produção diária feita na casa", "Receitas clássicas para fechar o rodízio", "Opções cremosas, frutas e doces brasileiros", "Seleção rotativa conforme a unidade"], images: ["assets/figma/bd625.png", "assets/figma/3e852.png", "assets/figma/dbc1e.png"], captions: ["Sobremesas da casa", "Buffet completo", "Cortes nobres"] },
+  carnes: { title: "Carnes", points: ["Picanha nobre e cortes especiais", "Bife ancho, chorizo e assado de tira", "Costela premium e cordeiro", "Seleção rotativa do mestre churrasqueiro"], images: [menuImages.carnes, menuImages.buffet, menuImages.sobremesas], captions: ["Cortes nobres", "Buffet completo", "Sobremesas da casa"] },
+  buffet: { title: "Buffet", points: ["26 tipos de saladas e entradas frescas", "Culinária japonesa e pratos quentes", "Acompanhamentos clássicos do churrasco", "Reposição constante durante o serviço"], images: [menuImages.buffet, menuImages.carnes, menuImages.ambiente], captions: ["Buffet completo", "Cortes da casa", "Ambiente acolhedor"] },
+  bebidas: { title: "Bebidas", points: ["Vinhos selecionados para cortes nobres", "Chopp gelado e cervejas parceiras", "Drinques clássicos e autorais", "Atendimento por unidade para eventos"], images: [menuImages.ambiente, menuImages.ambev, menuImages.brahma], captions: ["Adega e salão", "Ambev", "Brahma"] },
+  sobremesas: { title: "Sobremesas", points: ["Produção diária feita na casa", "Receitas clássicas para fechar o rodízio", "Opções cremosas, frutas e doces brasileiros", "Seleção rotativa conforme a unidade"], images: [menuImages.sobremesas, menuImages.buffet, menuImages.carnes], captions: ["Sobremesas da casa", "Buffet completo", "Cortes nobres"] },
 };
 
 const units = [
-  { name: "Santo André", slug: "santo-andre", tag: "ABC Paulista", address: "Av. Dom Pedro II, 444 · Jardim", image: "assets/optimized/unidade-santo-andre.webp", whatsapp: "https://wa.me/5511996057584" },
-  { name: "Paraíso", slug: "paraiso", tag: "Bela Vista", address: "Rua Pedro Ivo, 63 · Paraíso", image: "assets/optimized/unidade-paraiso.webp", whatsapp: "https://wa.me/5511974663743" },
-  { name: "Faria Lima", slug: "faria-lima", tag: "Itaim Bibi", address: "Av. Brigadeiro Faria Lima, 3167", image: "assets/optimized/unidade-faria-lima.webp", whatsapp: "https://wa.me/5511978285657" },
-  { name: "Marginal Tietê", slug: "marginal-tiete", tag: "Zona Norte", address: "Praça Bento de Camargo Barros, 172", image: "assets/optimized/unidade-marginal-tiete.webp", whatsapp: "https://wa.me/5511913707061" },
-  { name: "Guarulhos", slug: "guarulhos", tag: "Grande São Paulo", address: "Av. Antônio de Souza, 186 · Jardim Santa Francisca", image: "assets/optimized/unidade-guarulhos.webp", whatsapp: "https://wa.me/5511977891460" },
-  { name: "Vila Mariana", slug: "vila-mariana", tag: "Zona Sul", address: "Rua Pedro de Toledo, 1361 · Vila Mariana", image: "assets/optimized/unidade-vila-mariana.webp", whatsapp: "https://wa.me/5511925296446" },
-  { name: "Morumbi", slug: "morumbi", tag: "Zona Sul", address: "Av. Dr. Guilherme Dumont Vilares, 2394 · Vila Andrade", image: "assets/optimized/unidade-morumbi.webp", whatsapp: "https://wa.me/5511995706960" },
-  { name: "São Bernardo", slug: "sao-bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 77 · Planalto", image: "assets/optimized/unidade-sao-bernardo.webp", whatsapp: "https://wa.me/5511913662743" },
-  { name: "Barra Funda", slug: "barra-funda", tag: "Zona Oeste", address: "Av. Marquês de São Vicente, 1771 · Várzea da Barra Funda", image: "assets/optimized/unidade-barra-funda.webp", whatsapp: "https://wa.me/5511943976727" },
+  { name: "Santo André", slug: "santo-andre", tag: "ABC Paulista", address: "Av. Dom Pedro II, 444 · Jardim", image: "assets/optimized/unidade-santo-andre.webp", imageWidth: 1200, whatsapp: "https://wa.me/5511996057584" },
+  { name: "Paraíso", slug: "paraiso", tag: "Bela Vista", address: "Rua Pedro Ivo, 63 · Paraíso", image: "assets/optimized/unidade-paraiso.webp", imageWidth: 1200, whatsapp: "https://wa.me/5511974663743" },
+  { name: "Faria Lima", slug: "faria-lima", tag: "Itaim Bibi", address: "Av. Brigadeiro Faria Lima, 3167", image: "assets/optimized/unidade-faria-lima.webp", imageWidth: 1200, whatsapp: "https://wa.me/5511978285657" },
+  { name: "Marginal Tietê", slug: "marginal-tiete", tag: "Zona Norte", address: "Praça Bento de Camargo Barros, 172", image: "assets/optimized/unidade-marginal-tiete.webp", imageWidth: 1200, whatsapp: "https://wa.me/5511913707061" },
+  { name: "Guarulhos", slug: "guarulhos", tag: "Grande São Paulo", address: "Av. Antônio de Souza, 186 · Jardim Santa Francisca", image: "assets/optimized/unidade-guarulhos.webp", imageWidth: 933, whatsapp: "https://wa.me/5511977891460" },
+  { name: "Vila Mariana", slug: "vila-mariana", tag: "Zona Sul", address: "Rua Pedro de Toledo, 1361 · Vila Mariana", image: "assets/optimized/unidade-vila-mariana.webp", imageWidth: 1050, whatsapp: "https://wa.me/5511925296446" },
+  { name: "Morumbi", slug: "morumbi", tag: "Zona Sul", address: "Av. Dr. Guilherme Dumont Vilares, 2394 · Vila Andrade", image: "assets/optimized/unidade-morumbi.webp", imageWidth: 900, whatsapp: "https://wa.me/5511995706960" },
+  { name: "São Bernardo", slug: "sao-bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 77 · Planalto", image: "assets/optimized/unidade-sao-bernardo.webp", imageWidth: 1200, whatsapp: "https://wa.me/5511913662743" },
+  { name: "Barra Funda", slug: "barra-funda", tag: "Zona Oeste", address: "Av. Marquês de São Vicente, 1771 · Várzea da Barra Funda", image: "assets/optimized/unidade-barra-funda.webp", imageWidth: 965, whatsapp: "https://wa.me/5511943976727" },
 ];
 
 const cardAmenityIcons = {
@@ -50,7 +63,10 @@ function setMenu(key) {
   });
   menuPanel.setAttribute("aria-labelledby", `tab-${key}`);
   menuPanel.innerHTML = `<h3>${item.title}</h3><ul>${item.points.map((point) => `<li>${point}</li>`).join("")}</ul><a class="text-link" href="https://www.dbrescia.com.br/" target="_blank" rel="noreferrer">Ver cardápio completo</a>`;
-  [menuImageMain.src, menuImageSide.src, menuImageBottom.src] = item.images;
+  [menuImageMain, menuImageSide, menuImageBottom].forEach((image, imageIndex) => {
+    image.srcset = item.images[imageIndex].srcset;
+    image.src = item.images[imageIndex].src;
+  });
   [menuCaptionMain.textContent, menuCaptionSide.textContent, menuCaptionBottom.textContent] = item.captions;
 }
 
@@ -75,8 +91,11 @@ const unitAddress = document.querySelector("[data-unit-address]");
 const unitWhatsapp = document.querySelector("[data-unit-whatsapp]");
 const unitPage = document.querySelector("[data-unit-page]");
 
+const unitSrcset = (unit) => `${unit.image.replace(".webp", "-480.webp")} 480w, ${unit.image.replace(".webp", "-800.webp")} 800w, ${unit.image} ${unit.imageWidth}w`;
+
 function setUnit(index) {
   const unit = units[index];
+  unitImage.srcset = unitSrcset(unit);
   unitImage.src = unit.image;
   unitImage.alt = `Fachada ou ambiente da unidade D'Brescia ${unit.name}`;
   unitIndex.textContent = `${String(index + 1).padStart(2, "0")} / ${String(units.length).padStart(2, "0")}`;
@@ -91,7 +110,7 @@ function setUnit(index) {
 }
 
 unitControls.innerHTML = units.map((unit, index) => `<button class="unit-thumb" type="button" data-unit="${index}" aria-pressed="false">${unit.name}</button>`).join("");
-unitGrid.innerHTML = units.map((unit) => `<a class="unit-card" href="unidades/${unit.slug}/" aria-label="Abrir página da unidade ${unit.name}"><img src="${unit.image}" alt="" loading="lazy" decoding="async"><div><strong>${unit.name}</strong><span>${unit.tag}</span></div><ul class="unit-card__amenities" aria-label="Comodidades: ${cardAmenities.map((amenity) => amenity.label).join(", ")}">${cardAmenities.map((amenity) => `<li>${cardAmenityIcons[amenity.icon]}<span>${amenity.label}</span></li>`).join("")}</ul><em>Conheça a unidade <span aria-hidden="true">→</span></em></a>`).join("");
+unitGrid.innerHTML = units.map((unit) => `<a class="unit-card" href="unidades/${unit.slug}/" aria-label="Abrir página da unidade ${unit.name}"><img src="${unit.image.replace(".webp", "-800.webp")}" srcset="${unitSrcset(unit)}" sizes="(max-width: 760px) 88vw, (max-width: 980px) 45vw, 410px" alt="" loading="lazy" decoding="async"><div><strong>${unit.name}</strong><span>${unit.tag}</span></div><ul class="unit-card__amenities" aria-label="Comodidades: ${cardAmenities.map((amenity) => amenity.label).join(", ")}">${cardAmenities.map((amenity) => `<li>${cardAmenityIcons[amenity.icon]}<span>${amenity.label}</span></li>`).join("")}</ul><em>Conheça a unidade <span aria-hidden="true">→</span></em></a>`).join("");
 
 document.querySelectorAll(".unit-thumb").forEach((button) => button.addEventListener("click", () => {
   setUnit(Number(button.dataset.unit));
@@ -110,6 +129,18 @@ mobileMenu.addEventListener("close", () => { document.body.classList.remove("men
 mobileMenu.addEventListener("cancel", () => menuButton.setAttribute("aria-expanded", "false"));
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// O vídeo do hero só carrega em telas largas, depois do load, e respeita economia de dados.
+const heroVideo = document.querySelector(".hero-video");
+if (heroVideo && !reduceMotion && !navigator.connection?.saveData && window.matchMedia("(min-width: 621px)").matches) {
+  const startHeroVideo = () => {
+    heroVideo.addEventListener("playing", () => heroVideo.classList.add("is-playing"), { once: true });
+    heroVideo.src = heroVideo.dataset.src;
+    heroVideo.play().catch(() => {});
+  };
+  if (document.readyState === "complete") startHeroVideo();
+  else window.addEventListener("load", startHeroVideo, { once: true });
+}
 const proofBand = document.querySelector(".proof-band");
 function animateProofNumbers() {
   proofBand?.querySelectorAll("strong").forEach((number) => {

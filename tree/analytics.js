@@ -54,7 +54,12 @@
     const control = event.target.closest("a, button");
     if (!control) return;
     const data = trackingData(control);
-    if (data) track("tree_interaction", data);
+    if (!data) return;
+    track("tree_interaction", data);
+
+    // Eventos de intenção de contato, para marcar como eventos principais no GA4.
+    if (data.destination === "whatsapp") track("whatsapp_click", data);
+    else if (data.action_type === "delivery") track("delivery_click", data);
   });
 
   const consent = localStorage.getItem(consentKey);

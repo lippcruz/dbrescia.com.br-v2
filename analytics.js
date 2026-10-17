@@ -56,12 +56,18 @@
   document.addEventListener("click", (event) => {
     const control = event.target.closest("a, button");
     if (!control || control.closest(".analytics-consent")) return;
-    track("site_interaction", {
+    const parameters = {
       action_type: control.tagName === "A" ? "link" : "botao",
       link_label: labelFor(control),
       destination: destinationFor(control),
       page_path: window.location.pathname,
-    });
+    };
+    track("site_interaction", parameters);
+
+    // Eventos de intenção de contato, para marcar como eventos principais no GA4.
+    const href = control.getAttribute("href") || "";
+    if (/(^|\.)wa\.me$|whatsapp\.com$/.test(parameters.destination)) track("whatsapp_click", parameters);
+    else if (href.startsWith("tel:")) track("phone_click", parameters);
   });
 
   const consent = localStorage.getItem(consentKey);

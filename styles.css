@@ -64,7 +64,7 @@ button {
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background: url("assets/optimized/hero-fire.webp") center / cover;
+  background: var(--bg);
 }
 
 .hero-bg::after {
@@ -78,10 +78,22 @@ button {
   pointer-events: none;
 }
 
+.hero-poster,
 .hero-video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.hero-video {
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+.hero-video.is-playing {
+  opacity: 1;
 }
 
 .topbar {
@@ -269,6 +281,7 @@ h3 {
 
 .mobile-menu-head img {
   width: 215px;
+  height: auto;
 }
 
 .mobile-menu-head button {
@@ -928,6 +941,7 @@ h3 {
 
 .site-footer img {
   width: 220px;
+  height: auto;
 }
 
 .site-footer nav {
@@ -1141,11 +1155,10 @@ h3 {
     padding-bottom: 74px;
   }
 
-  .hero-bg {
+  .hero-bg::after {
     background:
       linear-gradient(90deg, rgba(3, 2, 2, 0.93), rgba(3, 2, 2, 0.48)),
-      linear-gradient(0deg, var(--bg), rgba(7, 6, 6, 0) 30%),
-      url("assets/optimized/hero-fire.webp") center / cover;
+      linear-gradient(0deg, var(--bg), rgba(7, 6, 6, 0) 30%);
   }
 
   .hero-actions,
