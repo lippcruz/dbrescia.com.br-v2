@@ -2,6 +2,34 @@ const buttons = document.querySelectorAll('[data-mode]');
 const cards = document.querySelectorAll('.unit-card');
 const status = document.querySelector('[data-directory-status]');
 const deliveryNote = document.querySelector('.delivery-note');
+const prices = window.DBRESCIA_PRECOS;
+let priceNote = null;
+
+if (prices) {
+  cards.forEach((card) => {
+    const unit = prices.unidades[card.dataset.unit];
+    if (!unit) return;
+    const price = (value, label) => `<div class="unit-prices__item"><b><small>R$</small> ${value}</b>${label ? `<small>${label}</small>` : ''}</div>`;
+    const block = document.createElement('div');
+    block.className = 'unit-prices';
+    block.innerHTML = `<strong>Rodízio</strong>`
+      + `<div class="unit-prices__period"><h4>Almoço</h4><div class="unit-prices__row">${price(unit.almocoSemana, 'seg a sex')}${price(unit.almocoFimDeSemana, 'sáb, dom e fer')}</div></div>`
+      + `<div class="unit-prices__period"><h4>Jantar</h4><div class="unit-prices__row">${price(unit.jantar)}</div></div>`
+      + `<p class="unit-prices__extra"><em>Infantil (6 a 11 anos) <b>R$ ${unit.infantil}</b></em> <em>Só buffet <b>R$ ${unit.buffet}</b></em></p>`;
+    card.querySelector('.unit-card__content > p').after(block);
+    const menu = document.createElement('a');
+    menu.dataset.menuLink = '';
+    menu.href = `cardapios/${card.dataset.unit}.pdf`;
+    menu.target = '_blank';
+    menu.rel = 'noreferrer';
+    menu.innerHTML = 'Ver cardápio completo <b>↗</b>';
+    card.querySelector('[data-reservation]').after(menu);
+  });
+  priceNote = document.createElement('p');
+  priceNote.className = 'price-note';
+  priceNote.textContent = `Valores por pessoa, vigentes em ${prices.vigencia}. Bebidas e sobremesas à parte.`;
+  deliveryNote.before(priceNote);
+}
 
 function setMode(mode) {
   const delivery = mode === 'delivery';
@@ -25,6 +53,7 @@ function setMode(mode) {
     image.alt = events ? `Salão para eventos da unidade D'Brescia ${card.querySelector('h3').textContent}` : image.dataset.originalAlt;
   });
   deliveryNote.hidden = events;
+  if (priceNote) priceNote.hidden = delivery || events;
   status.textContent = events
     ? 'Conheça os ambientes e fale diretamente com a unidade para realizar seu evento.'
     : delivery

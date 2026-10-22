@@ -44,6 +44,7 @@
     if (element.matches("[data-reservation]")) return { action_type: "informacoes_reservas", unit: unitFor(element), destination: "whatsapp" };
     if (element.matches("[data-event-link]")) return { action_type: "eventos", unit: unitFor(element), destination: "whatsapp" };
     if (element.matches("[data-delivery-link]")) return { action_type: "delivery", unit: unitFor(element), destination: element.getAttribute("aria-label")?.replace("Pedir no ", "") || "delivery" };
+    if (element.matches("[data-menu-link]")) return { action_type: "cardapio", unit: unitFor(element), destination: "pdf" };
     if (element.matches("[data-show-events]")) return { action_type: "abrir_eventos", placement: "hero" };
     if (element.matches("[data-show-delivery]")) return { action_type: "abrir_delivery", placement: "hero" };
     if (element.matches("[data-mode]")) return { action_type: "trocar_aba", tab: element.dataset.mode };
