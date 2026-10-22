@@ -17,8 +17,8 @@ window.DBRESCIA_PRECOS = (() => {
   // `dias` são os dias da promoção e `demaisDias` os dias em que vale o preço normal.
   const promocoes = [
     { periodo: 'jantar', preco: '119,90', dias: 'dom a ter', demaisDias: 'qua a sáb', ate: '2026-10-31', unidades: ['santo-andre', 'guarulhos', 'marginal-tiete'] },
-    { periodo: 'jantar', preco: '129,90', dias: 'dom e seg', demaisDias: 'ter a sáb', ate: '2026-10-31', unidades: ['sao-bernardo', 'paraiso', 'morumbi', 'vila-mariana'] },
-    { periodo: 'jantar', preco: '129,90', dias: 'dom a ter', demaisDias: 'qua a sáb', ate: '2026-10-31', unidades: ['faria-lima', 'barra-funda'] }
+    { periodo: 'jantar', preco: '129,90', dias: 'dom a ter', demaisDias: 'qua a sáb', ate: '2026-10-31', unidades: ['sao-bernardo', 'paraiso', 'morumbi', 'vila-mariana'] },
+    { periodo: 'jantar', preco: '129,90', dias: 'dom e seg', demaisDias: 'ter a sáb', ate: '2026-10-31', unidades: ['faria-lima', 'barra-funda'] }
   ];
 
   return {
