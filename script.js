@@ -62,7 +62,7 @@ function setMenu(key) {
     tab.setAttribute("tabindex", active ? "0" : "-1");
   });
   menuPanel.setAttribute("aria-labelledby", `tab-${key}`);
-  menuPanel.innerHTML = `<h3>${item.title}</h3><ul>${item.points.map((point) => `<li>${point}</li>`).join("")}</ul><a class="text-link" href="https://www.dbrescia.com.br/" target="_blank" rel="noreferrer">Ver cardápio completo</a>`;
+  menuPanel.innerHTML = `<h3>${item.title}</h3><ul>${item.points.map((point) => `<li>${point}</li>`).join("")}</ul><a class="text-link" href="tree/#unidades">Ver cardápio completo</a>`;
   [menuImageMain, menuImageSide, menuImageBottom].forEach((image, imageIndex) => {
     image.srcset = item.images[imageIndex].srcset;
     image.src = item.images[imageIndex].src;
