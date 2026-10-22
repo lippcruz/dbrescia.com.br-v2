@@ -10,11 +10,16 @@ if (prices) {
     const unit = prices.unidades[card.dataset.unit];
     if (!unit) return;
     const price = (value, label) => `<div class="unit-prices__item"><b><small>R$</small> ${value}</b>${label ? `<small>${label}</small>` : ''}</div>`;
+    const today = new Date().toLocaleDateString('sv-SE');
+    const promo = (prices.promocoes || []).find((item) => item.periodo === 'jantar' && item.ate >= today && item.unidades.includes(card.dataset.unit));
+    const dinner = promo
+      ? price(unit.jantar, promo.demaisDias) + `<div class="unit-prices__item unit-prices__item--promo"><s>de R$ ${unit.jantar}</s><b><small>R$</small> ${promo.preco}</b><small>Promoção · ${promo.dias}</small></div>`
+      : price(unit.jantar);
     const block = document.createElement('div');
     block.className = 'unit-prices';
     block.innerHTML = `<strong>Rodízio</strong>`
       + `<div class="unit-prices__period"><h4>Almoço</h4><div class="unit-prices__row">${price(unit.almocoSemana, 'seg a sex')}${price(unit.almocoFimDeSemana, 'sáb, dom e fer')}</div></div>`
-      + `<div class="unit-prices__period"><h4>Jantar</h4><div class="unit-prices__row">${price(unit.jantar)}</div></div>`
+      + `<div class="unit-prices__period"><h4>Jantar</h4><div class="unit-prices__row">${dinner}</div></div>`
       + `<p class="unit-prices__extra"><em>Infantil (6 a 11 anos) <b>R$ ${unit.infantil}</b></em> <em>Só buffet <b>R$ ${unit.buffet}</b></em></p>`;
     card.querySelector('.unit-card__content > p').after(block);
     const menu = document.createElement('a');
