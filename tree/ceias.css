@@ -17,7 +17,15 @@
 .ceia-card--reveillon .ceia-card__description,.ceia-card--reveillon .ceia-card__note{color:#706359}
 .ceia-card__purchase{margin-top:auto}
 .ceia-card__purchase label{display:block;margin-bottom:8px;font-size:12px;font-weight:800}
-.ceia-card__purchase select{display:block;width:100%;min-height:52px;padding:0 14px;border:1px solid rgba(28,19,12,.3);border-radius:0;background:#fff;color:#1c130c;font:600 14px Inter,Arial,sans-serif;cursor:pointer}
+.ceia-card__select{position:relative;display:block;border:1px solid #cfc4b6;border-radius:4px;background:#fff;transition:border-color .18s,box-shadow .18s}
+.ceia-card__select:hover{border-color:#9b7130}
+.ceia-card__select:focus-within{border-color:#bd8c3d;box-shadow:0 0 0 3px rgba(189,140,61,.32)}
+.ceia-card__select::before{content:"";position:absolute;top:10px;right:48px;bottom:10px;width:1px;background:#e8dfd3;pointer-events:none}
+.ceia-card__select::after{content:"";position:absolute;top:50%;right:21px;width:9px;height:9px;border-right:2px solid #8a6021;border-bottom:2px solid #8a6021;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.ceia-card__purchase select{display:block;width:100%;min-width:0;min-height:54px;padding:0 62px 0 16px;border:0;border-radius:4px;background:transparent;color:#1c130c;font:600 16px/1.3 Inter,Arial,sans-serif;appearance:none;-webkit-appearance:none;-moz-appearance:none;cursor:pointer}
+.ceia-card__purchase select:invalid{color:#706359}
+.ceia-card__purchase select:focus-visible{outline:none}
+.ceia-card__purchase select::-ms-expand{display:none}
 .ceia-card__action{display:flex;min-height:52px;align-items:center;justify-content:center;margin-top:11px;padding:12px 15px;font-size:13px;font-weight:800;text-align:center;transition:background .18s}
 .ceia-card--natal .ceia-card__action:not([aria-disabled="true"]){background:#d9b46d;color:#1c130c}
 .ceia-card--natal .ceia-card__action:not([aria-disabled="true"]):hover{background:#f1d49a}
