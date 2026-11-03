@@ -11,7 +11,7 @@ if (prices) {
     if (!unit) return;
     const price = (value, label) => `<div class="unit-prices__item"><b><small>R$</small> ${value}</b>${label ? `<small>${label}</small>` : ''}</div>`;
     const today = new Date().toLocaleDateString('sv-SE');
-    const promo = (prices.promocoes || []).find((item) => item.periodo === 'jantar' && item.ate >= today && item.unidades.includes(card.dataset.unit));
+    const promo = (prices.promocoes || []).find((item) => item.periodo === 'jantar' && (!item.ate || item.ate >= today) && item.unidades.includes(card.dataset.unit));
     const dinner = promo
       ? price(unit.jantar, promo.demaisDias) + `<div class="unit-prices__item unit-prices__item--promo"><s>de R$ ${unit.jantar}</s><b><small>R$</small> ${promo.preco}</b><small>Promoção · ${promo.dias}</small></div>`
       : price(unit.jantar);

@@ -13,12 +13,13 @@ window.DBRESCIA_PRECOS = (() => {
   const intermediaria = tabela('159,90', '179,90', '149,90', '99,90');
   const padrao = tabela('154,90', '169,90', '144,90', '89,90');
 
-  // Promoções: aparecem como "de / por" até a data final (inclusive) e somem sozinhas depois dela.
+  // Promoções: aparecem como "de / por". Sem `ate`, ficam no ar até serem removidas daqui;
+  // com `ate: 'AAAA-MM-DD'`, somem sozinhas depois dessa data (inclusive).
   // `dias` são os dias da promoção e `demaisDias` os dias em que vale o preço normal.
   const promocoes = [
-    { periodo: 'jantar', preco: '119,90', dias: 'dom a ter', demaisDias: 'qua a sáb', ate: '2026-10-31', unidades: ['santo-andre', 'guarulhos', 'marginal-tiete'] },
-    { periodo: 'jantar', preco: '129,90', dias: 'dom a ter', demaisDias: 'qua a sáb', ate: '2026-10-31', unidades: ['sao-bernardo', 'paraiso', 'morumbi', 'vila-mariana'] },
-    { periodo: 'jantar', preco: '129,90', dias: 'dom e seg', demaisDias: 'ter a sáb', ate: '2026-10-31', unidades: ['faria-lima', 'barra-funda'] }
+    { periodo: 'jantar', preco: '119,90', dias: 'dom a ter', demaisDias: 'qua a sáb', unidades: ['santo-andre', 'guarulhos', 'marginal-tiete'] },
+    { periodo: 'jantar', preco: '129,90', dias: 'dom a ter', demaisDias: 'qua a sáb', unidades: ['sao-bernardo', 'paraiso', 'morumbi', 'vila-mariana'] },
+    { periodo: 'jantar', preco: '129,90', dias: 'dom e seg', demaisDias: 'ter a sáb', unidades: ['faria-lima', 'barra-funda'] }
   ];
 
   return {
