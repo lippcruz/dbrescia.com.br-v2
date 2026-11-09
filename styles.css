@@ -1128,6 +1128,10 @@ h3 {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .press-grid {
+    grid-template-rows: none;
+  }
+
   .press-main {
     grid-row: auto;
   }
@@ -1756,13 +1760,24 @@ h3 {
     text-wrap: balance;
   }
 }
-@media (max-width: 1020px) {
+@media (max-width: 980px) {
   .press-item img {
     min-height: 0;
   }
 }
+/* Duas colunas estreitas: foto menor para o texto não esticar os cards. */
+@media (min-width: 980.02px) and (max-width: 1100px) {
+  .press-item {
+    grid-template-columns: 150px 1fr;
+  }
+
+  .press-item img {
+    width: 150px;
+  }
+}
+
 /* Cards de imprensa: imagem preenche a altura do card no desktop. */
-@media (min-width: 1021px) {
+@media (min-width: 980.02px) {
   .press-item {
     grid-template-rows: 1fr 1fr;
     align-items: stretch;
