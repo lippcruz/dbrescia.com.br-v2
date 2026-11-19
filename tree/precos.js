@@ -12,6 +12,8 @@ window.DBRESCIA_PRECOS = (() => {
   const paraiso = tabela('179,90', '189,90', '169,90', '99,90');
   const intermediaria = tabela('159,90', '179,90', '149,90', '99,90');
   const padrao = tabela('154,90', '169,90', '144,90', '89,90');
+  // Vila Mariana abre em dezembro de 2026, já com a tabela de dezembro (usuário, 2026-11-19).
+  const vilaMariana = tabela('189,90', '199,90', '179,90', '99,90');
 
   // Promoções: aparecem como "de / por". Sem `ate`, ficam no ar até serem removidas daqui;
   // com `ate: 'AAAA-MM-DD'`, somem sozinhas depois dessa data (inclusive).
@@ -31,7 +33,7 @@ window.DBRESCIA_PRECOS = (() => {
       'sao-bernardo': intermediaria,
       'santo-andre': padrao,
       guarulhos: padrao,
-      'vila-mariana': padrao,
+      'vila-mariana': vilaMariana,
       'marginal-tiete': padrao
     }
   };
