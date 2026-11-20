@@ -44,3 +44,5 @@ Conteúdo e identidade atuais em `index.html`, `styles.css`, `assets/figma/` e `
 ## Accessibility & Inclusion
 
 Manter navegação por teclado, foco visível, semântica, contraste adequado, alternativas textuais e respeito a `prefers-reduced-motion`. Evitar textos funcionais menores que 12px e alvos de toque inferiores a 44px.
+
+[[DBrescia]]
