@@ -9,7 +9,7 @@ const units = {
   guarulhos: { name: "Guarulhos", tag: "Grande São Paulo", address: "Av. Antônio de Souza, 186 · Jardim Santa Francisca · Guarulhos - SP", phone: "1124434062", phoneDisplay: "(11) 2443-4062", image: "assets/optimized/unidade-guarulhos.webp", whatsapp: "https://wa.me/5511977891460" },
   "vila-mariana": { name: "Vila Mariana", tag: "Zona Sul", address: "Rua Pedro de Toledo, 1361 · Vila Mariana · São Paulo - SP", phone: "1155557489", phoneDisplay: "(11) 5555-7489", image: "assets/optimized/unidade-vila-mariana.webp", whatsapp: "https://wa.me/5511925296446" },
   morumbi: { name: "Morumbi", tag: "Zona Sul", address: "Av. Dr. Guilherme Dumont Vilares, 2394 · Vila Andrade · São Paulo - SP", phone: "11999088541", phoneDisplay: "(11) 99908-8541", image: "assets/optimized/unidade-morumbi.webp", whatsapp: "https://wa.me/5511995706960" },
-  "sao-bernardo": { name: "São Bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 77 · Planalto · São Bernardo do Campo - SP", phone: "11913662743", phoneDisplay: "(11) 91366-2743", image: "assets/optimized/unidade-sao-bernardo.webp", whatsapp: "https://wa.me/5511913662743" },
+  "sao-bernardo": { name: "São Bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 83 · Planalto · São Bernardo do Campo - SP", phone: "11913662743", phoneDisplay: "(11) 91366-2743", image: "assets/optimized/unidade-sao-bernardo.webp", whatsapp: "https://wa.me/5511913662743" },
   "barra-funda": { name: "Barra Funda", tag: "Zona Oeste", address: "Av. Marquês de São Vicente, 1771 · Várzea da Barra Funda · São Paulo - SP", phone: "1153993456", phoneDisplay: "(11) 5399-3456", image: "assets/optimized/unidade-barra-funda.webp", whatsapp: "https://wa.me/5511943976727" },
 };
 const unit = units[pageUnit];

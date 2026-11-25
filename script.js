@@ -28,7 +28,7 @@ const units = [
   { name: "Guarulhos", slug: "guarulhos", tag: "Grande São Paulo", address: "Av. Antônio de Souza, 186 · Jardim Santa Francisca", image: "assets/optimized/unidade-guarulhos.webp", imageWidth: 933, whatsapp: "https://wa.me/5511977891460" },
   { name: "Vila Mariana", slug: "vila-mariana", tag: "Zona Sul", address: "Rua Pedro de Toledo, 1361 · Vila Mariana", image: "assets/optimized/unidade-vila-mariana.webp", imageWidth: 1050, whatsapp: "https://wa.me/5511925296446" },
   { name: "Morumbi", slug: "morumbi", tag: "Zona Sul", address: "Av. Dr. Guilherme Dumont Vilares, 2394 · Vila Andrade", image: "assets/optimized/unidade-morumbi.webp", imageWidth: 900, whatsapp: "https://wa.me/5511995706960" },
-  { name: "São Bernardo", slug: "sao-bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 77 · Planalto", image: "assets/optimized/unidade-sao-bernardo.webp", imageWidth: 1200, whatsapp: "https://wa.me/5511913662743" },
+  { name: "São Bernardo", slug: "sao-bernardo", tag: "ABC Paulista", address: "Rua Carlos Olávo Vicentini, 83 · Planalto", image: "assets/optimized/unidade-sao-bernardo.webp", imageWidth: 1200, whatsapp: "https://wa.me/5511913662743" },
   { name: "Barra Funda", slug: "barra-funda", tag: "Zona Oeste", address: "Av. Marquês de São Vicente, 1771 · Várzea da Barra Funda", image: "assets/optimized/unidade-barra-funda.webp", imageWidth: 965, whatsapp: "https://wa.me/5511943976727" },
 ];
 

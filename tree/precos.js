@@ -1,5 +1,6 @@
 // Preços do rodízio por unidade. Para reajustar, altere as tabelas abaixo e a vigência.
 // Os cardápios completos ficam em tree/cardapios/<unidade>.pdf (substitua o arquivo mantendo o nome).
+// Sobremesas e vinhos: PDFs em tree/cardapios/, ligados a cada unidade em `cartas` abaixo.
 window.DBRESCIA_PRECOS = (() => {
   const tabela = (almocoSemana, almocoFimDeSemana, jantar, infantil) => ({
     almocoSemana,
@@ -22,8 +23,25 @@ window.DBRESCIA_PRECOS = (() => {
   // Promoção de jantar retirada em 2026-11-19 a pedido do usuário.
   const promocoes = [];
 
+  // Sobremesas: carta única. Vinhos: duas cartas, nomeadas pelas unidades (usuário, 2026-11-25).
+  const sobremesas = 'cardapios/sobremesas.pdf';
+  const vinhosFariaLima = { sobremesas, vinhos: 'cardapios/vinhos-farialima-paraiso-sbc-morumbi-mariana-barrafunda.pdf' };
+  const vinhosSantoAndre = { sobremesas, vinhos: 'cardapios/vinhos-santoandre-guarulhos-tiete.pdf' };
+  const cartas = {
+    'sao-bernardo': vinhosFariaLima,
+    morumbi: vinhosFariaLima,
+    'vila-mariana': vinhosFariaLima,
+    'faria-lima': vinhosFariaLima,
+    paraiso: vinhosFariaLima,
+    'barra-funda': vinhosFariaLima,
+    'santo-andre': vinhosSantoAndre,
+    guarulhos: vinhosSantoAndre,
+    'marginal-tiete': vinhosSantoAndre,
+  };
+
   return {
-    vigencia: 'outubro de 2026',
+    cartas,
+    vigencia: 'novembro de 2026',
     promocoes,
     unidades: {
       'faria-lima': premium,

@@ -17,17 +17,22 @@ if (prices) {
       : price(unit.jantar);
     const block = document.createElement('div');
     block.className = 'unit-prices';
-    block.innerHTML = `<strong>Rodízio</strong>`
+    block.innerHTML = `<strong>Rodízio</strong><small class="unit-prices__vig">Valores válidos para ${prices.vigencia}</small>`
       + `<div class="unit-prices__period"><h4>Almoço</h4><div class="unit-prices__row">${price(unit.almocoSemana, 'seg a sex')}${price(unit.almocoFimDeSemana, 'sáb, dom e fer')}</div></div>`
       + `<div class="unit-prices__period"><h4>Jantar</h4><div class="unit-prices__row">${dinner}</div></div>`
       + `<p class="unit-prices__extra"><em>Infantil (6 a 11 anos) <b>R$ ${unit.infantil}</b></em> <em>Só buffet <b>R$ ${unit.buffet}</b></em></p>`;
     card.querySelector('.unit-card__content > p').after(block);
-    const menu = document.createElement('a');
-    menu.dataset.menuLink = '';
-    menu.href = `cardapios/${card.dataset.unit}.pdf`;
-    menu.target = '_blank';
-    menu.rel = 'noreferrer';
-    menu.innerHTML = 'Ver cardápio completo <b>↗</b>';
+    const cartas = (prices.cartas || {})[card.dataset.unit] || {};
+    const links = [
+      ['cardapio', `cardapios/${card.dataset.unit}.pdf`, 'Cardápio'],
+      ['sobremesas', cartas.sobremesas, 'Sobremesas'],
+      ['vinhos', cartas.vinhos, 'Vinhos']
+    ].filter(([, href]) => href);
+    const menu = document.createElement('div');
+    menu.className = 'menu-links';
+    menu.innerHTML = `<span>Cardápios</span><div class="menu-links__row">`
+      + links.map(([kind, href, label]) => `<a data-menu-link="${kind}" href="${href}" target="_blank" rel="noreferrer">${label}</a>`).join('')
+      + `</div>`;
     card.querySelector('[data-reservation]').after(menu);
   });
   priceNote = document.createElement('p');

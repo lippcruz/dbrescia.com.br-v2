@@ -34,3 +34,12 @@
 /* Celular: foto em cima, na largura toda do card. */
 @media(max-width:760px){.unit-card{display:block;min-height:0}.unit-card>img{height:150px}.unit-prices__row{gap:16px}.unit-prices__item b{font-size:28px}}
 .unit-prices__item--promo s{display:block;margin-bottom:2px;color:var(--muted);font-size:11px}.unit-prices__item--promo b{color:#8c611f}.unit-prices__item--promo>small{color:#8c611f;font-weight:700}
+
+/* Vigência dos preços e botões de cardápio, sobremesas e vinhos (nov/2026). */
+.unit-prices>strong{margin-bottom:2px}.unit-prices__vig{display:block;margin:0 0 12px;color:var(--muted);font-size:11px}
+.menu-links{padding-top:14px;border-top:1px solid var(--line)}.menu-links>span{display:block;margin-bottom:9px;color:#946824;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.menu-links__row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.unit-card .menu-links__row a{display:flex;align-items:center;justify-content:center;min-height:44px;margin:0;padding:0 6px;border:1px solid var(--ink);color:var(--ink);font-size:12px;font-weight:700;line-height:1.2;text-align:center;text-decoration:none}
+.unit-card .menu-links__row a:first-child{background:var(--ink);color:#fff}
+.unit-card .menu-links__row a:focus-visible{outline:2px solid #946824;outline-offset:2px}
+.unit-card.is-delivery .menu-links,.unit-card.is-event .menu-links{display:none}
